@@ -6,13 +6,13 @@ import { Button } from './Button';
 import { Socket } from './Socket';
 
 export function Content() {
-    const [addresses, setAddresses] = React.useState([]);
+    const [messages, setMessages] = React.useState([]);
     
     function getNewAddresses() {
         React.useEffect(() => {
-            Socket.on('addresses received', (data) => {
-                console.log("Received addresses from server: " + data['allAddresses']);
-                setAddresses(data['allAddresses']);
+            Socket.on('messages received', (data) => {
+                console.log("Received messages from server: " + data['allMessages']);
+                setMessages(data['allMessages']);
             })
         });
     }
@@ -21,9 +21,9 @@ export function Content() {
 
     return (
         <div>
-            <h1>USPS Addresses!</h1>
+            <h1>Welcome to the Deep Chat!</h1>
                 <ol>
-                    {addresses.map((address, index) =>
+                    {messages.map((address, index) =>
                         <li key={index}>{address}</li>)}
                 </ol>
             <Button />
