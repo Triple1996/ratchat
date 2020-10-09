@@ -36,7 +36,12 @@ html {
   overflow: auto;
   background-color: #ccccff;
 }
-
+#messages-wrapper {
+  float: left;
+}
+#users-wrapper {
+  float: right;
+}
 #input-ui {
   padding-top: 10px;
   width: 50%;
@@ -70,3 +75,4 @@ html {
   border-radius: 5px;
   margin-left: 30px;
 }
+
