@@ -12,7 +12,18 @@ html {
 #interface {
   text-align: center;
 }
+#user-count {
+  border-width: 3px;
+  border-style: ridge;
+  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  margin: auto;
+  width: 120px;
+  padding: 1px;
+}
+
 #chat-container {
+  padding-top: 10px;
   min-height: 100px;
   max-height: 50vm;
   width: 50%;
@@ -41,6 +52,7 @@ html {
   border-style: ridge;
   border-color: black;
   background-color: rgb(24, 211, 71);
+  margin-right: 20px;
 }
 
 #chat-input {

@@ -25,7 +25,9 @@ export function Content() {
     return (
         <div id="interface">
             <h1>Ratchat</h1>
-                <span>{users}</span>
+                <div id="user-count">
+                    <span>User count: {users}</span>
+                </div>
                 <div id='chat-container'>
                     {messages.map((address, index) =>
                         <ul className="chat-items" key={index}>{address}</ul>)}
