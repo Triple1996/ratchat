@@ -33,7 +33,9 @@ db.app = app
 db.create_all()
 db.session.commit()
 
-def emit_all_messageses(channel):
+# list of current users 
+user_list = []
+def emit_all_messages(channel):
     all_messages = [ \
         db_message.content for db_message \
         in db.session.query(tables.Chat).all()]
@@ -45,18 +47,29 @@ def emit_all_messageses(channel):
 
 @socketio.on('connect')
 def on_connect():
-    print('Someone connected!')
+    sid = flask.request.sid
+    user_list.append(sid)
+    print('Someone connected with sid: ' + sid + "\t user list:\n" + str(user_list) )
     socketio.emit('connected', {
         'test': 'Connected'
     })
     
-    emit_all_messageses(MESSAGES_RECEIVED_CHANNEL)
+    socketio.emit('updateUsers', {
+        'user_count': len(user_list)
+    })
+    
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 
 @socketio.on('disconnect')
 def on_disconnect():
+    sid = flask.request.sid
+    user_list.remove(sid)
     print ('Someone disconnected!')
-
+    socketio.emit('updateUsers', {
+        'user_count': len(user_list)
+    })
+    
 @socketio.on('new message input')
 def on_new_message(data):
     print("Got an event for new message input with data:", data)
@@ -64,11 +77,11 @@ def on_new_message(data):
     db.session.add(tables.Chat(data["message"]));
     db.session.commit();
     
-    emit_all_messageses(MESSAGES_RECEIVED_CHANNEL)
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
 @app.route('/')
 def index():
-    emit_all_messageses(MESSAGES_RECEIVED_CHANNEL)
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
     return flask.render_template("index.html")
 

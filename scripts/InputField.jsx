@@ -13,11 +13,11 @@ function handleSubmit(event) {
     event.preventDefault();
 }
 
-export function Button() {
+export function InputField() {
     return (
         <div id="input-ui">
             <form onSubmit={handleSubmit}>
-                <input id="chat-input" placeholder=""></input>
+                <input id="chat-input" placeholder="Enter message"></input>
                 <button id="submit">Send!</button>
             </form>
         </div>

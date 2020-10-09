@@ -1,0 +1,60 @@
+.Content {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+html {
+  background-image: linear-gradient(to bottom, #9999ff, #ccccff);
+  height: 100%;
+  background-size: cover;
+}
+
+#interface {
+  text-align: center;
+}
+#chat-container {
+  min-height: 100px;
+  max-height: 50vm;
+  width: 50%;
+  margin: auto;
+  border-width: 3px;
+  border-style: ridge;
+  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  text-align: left;
+  overflow: auto;
+  background-color: #ccccff;
+}
+
+#input-ui {
+  padding-top: 10px;
+  width: 50%;
+  margin: auto;
+}
+
+#submit {
+  font-size: 15px;
+  float: right;
+  height: 25px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: ridge;
+  border-color: black;
+  background-color: rgb(24, 211, 71);
+}
+
+#chat-input {
+  height: 20px;
+  width: 80%;
+  border-width: 2px;
+  border-style: ridge;
+  border-radius: 5px;
+  border-color: black;
+  background-color: #ccccff;
+}
+
+.chat-items {
+  border-left: 3px solid black;
+  border-radius: 5px;
+  margin-left: 30px;
+}
