@@ -1,6 +1,4 @@
-    
 import * as React from 'react';
-
 
 import { Button } from './Button';
 import { Socket } from './Socket';
@@ -20,12 +18,12 @@ export function Content() {
     getNewAddresses();
 
     return (
-        <div>
-            <h1>Welcome to the Deep Chat!</h1>
-                <ol>
+        <div id="interface">
+            <h1>Ratchat</h1>
+                <div id='chat-container'>
                     {messages.map((address, index) =>
-                        <li key={index}>{address}</li>)}
-                </ol>
+                        <ul key={index} className="chat-items">{address}</ul>)}
+                </div>
             <Button />
         </div>
     );

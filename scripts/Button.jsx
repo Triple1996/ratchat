@@ -15,9 +15,11 @@ function handleSubmit(event) {
 
 export function Button() {
     return (
-        <form onSubmit={handleSubmit}>
-            <input id="chat-input" placeholder=""></input>
-            <button>Send!</button>
-        </form>
+        <div id="input-ui">
+            <form onSubmit={handleSubmit}>
+                <input id="chat-input" placeholder=""></input>
+                <button id="submit">Send!</button>
+            </form>
+        </div>
     );
 }
