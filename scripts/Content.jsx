@@ -5,20 +5,20 @@ import { Socket } from './Socket';
 
 export function Content() {
     const [messages, setMessages] = React.useState([]);
-    const [users, setUsers] = React.useState(0);
+    const [users, setUsers] = React.useState([]);
+    const [userCount, setUserCount] = React.useState(0);
     
     React.useEffect(() => {
         
         Socket.on('messages received', (data) => {
             console.log("Received messages from server: " + data['allMessages']);
             setMessages(data['allMessages']);
+            setUsers(data['allUsers']);
         })
         
         Socket.on('updateUsers', (data) => {
-            setUsers(data['user_count'])
+            setUserCount(data['user_count'])
         })
-        
-
         
     });
 
@@ -26,11 +26,17 @@ export function Content() {
         <div id="interface">
             <h1>Ratchat</h1>
                 <div id="user-count">
-                    <span>User count: {users}</span>
+                    <span>User count: {userCount}</span>
                 </div>
                 <div id='chat-container'>
-                    {messages.map((address, index) =>
-                        <ul className="chat-items" key={index}>{address}</ul>)}
+                    <div id='messages-wrapper'>
+                        {messages.map((message, index) =>
+                            <ul className="chat-items" key={index}>{message}</ul>)}
+                    </div>
+                    <div id='users-wrapper'>
+                        {users.map((user, index) =>
+                            <ul className="signatures" key={index}>Sent by user: {user}</ul>)}
+                    </div>
                 </div>
             <InputField />
         </div>
