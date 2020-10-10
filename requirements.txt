@@ -51,6 +51,7 @@ pylint-plugin-utils==0.6
 PySocks==1.7.1
 python-dateutil==2.8.1
 python-dotenv==0.14.0
+python-dotenv
 python-engineio==3.13.2
 python-env==1.0.0
 python-socketio==4.6.0
