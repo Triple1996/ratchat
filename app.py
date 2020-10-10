@@ -51,10 +51,10 @@ def emit_all_messages(channel):
     
     
 def handle_bot(messageContent):
-    botStr = str(messageContent)
+    botStr = "## "
     name = "-Verminbot"
     print("Got an event for new message input with data:", messageContent, " from ", name)
-
+    
     db.session.add(chat_tables.Chat_log(botStr, name));
     db.session.commit();
         
