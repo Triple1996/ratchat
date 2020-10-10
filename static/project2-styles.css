@@ -92,3 +92,7 @@ html {
   margin-right: 10px;
   height: 45px;
 }
+#anchor {
+  overflow-anchor: auto;
+  height: 1px;
+}

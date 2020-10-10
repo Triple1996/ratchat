@@ -36,7 +36,9 @@ export function Content() {
                     <div id='users-wrapper'>
                         {signs.map((sign, index) =>
                             <ul className="signatures" key={index}>{sign}</ul>)}
+                        <div id="anchor"></div>
                     </div>
+                    
                 </div>
             <InputField />
         </div>
