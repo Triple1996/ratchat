@@ -24,7 +24,7 @@ export function Content() {
 
     return (
         <div id="interface">
-            <h1>Ratchat</h1>
+            <h1 id="title">Ratchat</h1>
                 <div id="user-count">
                     <span>User count: {userCount}</span>
                 </div>

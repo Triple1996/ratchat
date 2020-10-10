@@ -4,9 +4,13 @@
 }
 
 html {
-  background-image: linear-gradient(to bottom, #9999ff, #ccccff);
+  background-image: linear-gradient(to bottom, #992600, #330d00);
   height: 100%;
   background-size: cover;
+}
+
+#title{
+  font-size: 50px;
 }
 
 #interface {
@@ -20,6 +24,7 @@ html {
   margin: auto;
   width: 120px;
   padding: 1px;
+  background-color: #ffece6;
 }
 
 #chat-container {
@@ -33,7 +38,9 @@ html {
   border-radius: 10px;
   text-align: left;
   overflow: auto;
-  background-color: #ccccff;
+  background-color: #ffece6;
+  scrollbar-width: none;  /* hide scrollbars for FireFox */
+  -ms-overflow-style: none;  /* IE and Edge */
 }
 #messages-wrapper {
   float: left;
@@ -67,7 +74,7 @@ html {
   border-style: ridge;
   border-radius: 5px;
   border-color: black;
-  background-color: #ccccff;
+  background-color: #ffece6;
 }
 
 .chat-items {
