@@ -57,14 +57,14 @@ def handle_bot(messageContent):
     name = "-Verminbot"
     print("Got an event for new message input with data:", messageContent, " from ", name)
     
-    botStr = "## "
+    botStr = "~/ "
     
     if (cleanInput[0:5]=="about"):
         botStr+="I am the Verminlord."
         
     elif (cleanInput[0:4]=="help"):
         botStr+="\nCommands:" + \
-            "\n!!about\n!!help\n!!mandalorian <text> \n!!1337 <text>"
+            "\t!!about\t!!help\t!!mandalore <text>\t!!1337 <text>"
 
     elif (cleanInput[0:9]=="mandalore"):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
