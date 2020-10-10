@@ -54,8 +54,8 @@ def emit_all_messages(channel):
     
 def handle_bot(messageContent):
     cleanInput=str(messageContent).strip()
-    name = "-Verminbot"
-    print("Got an event for new message input with data:", messageContent, " from ", name)
+    sign = "-Verminbot"
+    print("Got an event for new message input with data:", messageContent, " from ", sign)
     
     botStr = "~/ "
     
@@ -85,7 +85,8 @@ def handle_bot(messageContent):
             't':'7',
             'l':'1',
             'e':'3',
-            'a':'4'    }
+            'a':'4',
+            's':'5'    }
             
         for key in translations:
             leetTranslation = leetTranslation.replace(key, translations[key])
@@ -97,7 +98,7 @@ def handle_bot(messageContent):
     else:
         botStr+="That command was unrecognized. For a list of commands, type !!help"
         
-    db.session.add(chat_tables.Chat_log(botStr, name));
+    db.session.add(chat_tables.Chat_log(botStr, sign));
     db.session.commit();
     
     
@@ -106,15 +107,17 @@ def handle_bot(messageContent):
     
 @socketio.on('new message input')
 def on_new_message(data):
-    name = "Sent by user: " + str(userIndex[flask.request.sid])
-    print("Got an event for new message input with data:", data, " from ", name)
-    messageContent = data["message"]
+    sign = "Sent by user: " + str(userIndex[flask.request.sid])
+    print("Got an event for new message input with data:", data, " from ", sign)
+    messageContent = data["message"].strip()
     
-    db.session.add(chat_tables.Chat_log(data["message"], name));
+    db.session.add(chat_tables.Chat_log(data["message"], sign));
     db.session.commit();
     
+    # update everyone's chat
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
+    # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
         handle_bot(messageContent[2:])
         
