@@ -48,6 +48,8 @@ def emit_all_messages(channel):
         'allMessages': all_messages,
         'allUsers': all_users_log
     })
+def handle_bot(messageContent):
+    print("That was a bot command")
     
 @socketio.on('connect')
 def on_connect():
@@ -81,10 +83,13 @@ def on_disconnect():
 def on_new_message(data):
     name = userIndex[flask.request.sid]
     print("Got an event for new message input with data:", data, " from ", name)
+    messageContent = data["message"]
     
-    db.session.add(chat_tables.Chat_log(data["message"], name));
-    db.session.commit();
+    #db.session.add(chat_tables.Chat_log(data["message"], name));
+    #db.session.commit();
     
+    if (messageContent[0] == '!' and messageContent[1] == '!'):
+        handle_bot(messageContent)
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
 @app.route('/')
