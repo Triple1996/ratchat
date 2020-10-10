@@ -55,7 +55,7 @@ def emit_all_messages(channel):
 def handle_bot(messageContent):
     cleanInput=str(messageContent).strip()
     sign = "-Verminbot"
-    print("Got an event for new message input with data:", messageContent, " from ", sign)
+    print("Verminbot processing command: ", messageContent)
     
     botRetStr = "~/ "
     
@@ -67,8 +67,7 @@ def handle_bot(messageContent):
 
     elif (cleanInput[0:9]=="mandalore"):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
-        print(reqResponse)
-        
+
         try:
             botRetStr+=reqResponse['contents']['translated']
         except KeyError:
@@ -100,14 +99,12 @@ def handle_bot(messageContent):
     db.session.add(chat_tables.Chat_log(botRetStr, sign));
     db.session.commit();
     
-    
-    print(botRetStr)
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 @socketio.on('new message input')
 def on_new_message(data):
     sign = "Sent by user: " + str(userIndex[flask.request.sid])
-    print("Got an event for new message input with data:", data, " from ", sign)
+    print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
     db.session.add(chat_tables.Chat_log(data["message"], sign));

@@ -8,6 +8,7 @@ function handleSubmit(event) {
     // message is empty
     if (/^\s*$/.test(newMessage)) { 
         alert("Text field cannot be empty");
+        newMessageLoc.value = ''
     }
     else if (newMessage.length > 120) {
         alert("Message only can be a maximum of 120 characters.")
@@ -16,8 +17,8 @@ function handleSubmit(event) {
         Socket.emit('new message input', {
             'message': newMessage,
         });
-       console.log('Sent the message ' + newMessage + ' to server!'); 
-       newMessageLoc.value = ''
+        console.log('Sent the message ' + newMessage + ' to server!'); 
+        newMessageLoc.value = ''
     }
     
     event.preventDefault();
