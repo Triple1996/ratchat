@@ -13,6 +13,10 @@ function handleSubmit(event) {
     else if (newMessage.length > 120) {
         alert("Message only can be a maximum of 120 characters.")
     }
+    else if (newMessage.trim().substr(0,2) == "~/"){
+        alert("Only the bot may start lines with '~/'");
+        newMessageLoc.value = ''
+    }
     else{
         Socket.emit('new message input', {
             'message': newMessage,
