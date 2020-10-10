@@ -51,10 +51,26 @@ def emit_all_messages(channel):
     
     
 def handle_bot(messageContent):
-    botStr = "## "
     name = "-Verminbot"
     print("Got an event for new message input with data:", messageContent, " from ", name)
     
+    botStr = "## "
+    cleanInput=messageContent.strip()
+    if (cleanInput[0:5]=="about"):
+        botStr+="I am the Verminlord."
+    elif (cleanInput[0:4]=="help"):
+        botStr+="Commands:" + \
+            "\n!!about\n!!funtranslate\n"
+
+    elif (cleanInput[0:12]=="funtranslate"):
+        botStr+="Let me translate: " + cleanInput[12:]
+    elif (cleanInput[0:6]=="other 1"):
+        botStr+="Unimplemented feature 1"
+    elif (cleanInput=="other 2"):
+        botStr+="Unimplemented feature 2"
+    else:
+        botStr+="That command was unrecognized. For a list of commands, type !!help"
+        
     db.session.add(chat_tables.Chat_log(botStr, name));
     db.session.commit();
         
@@ -87,7 +103,7 @@ def on_connect():
     global userId
     userId+=1
     userIndex[sid] = userId
-    print('Someone connected with sid: ' + sid + "\t user list:\n" + str(user_list) )
+    print('Someone connected with sid: ' + sid + "\t user list:\n" + str(userIndex) )
     socketio.emit('connected', {
         'test': 'Connected'
     })
