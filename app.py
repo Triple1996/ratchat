@@ -40,15 +40,15 @@ db.session.commit()
 def emit_all_messages(channel):
 
     all_messages = []
-    all_users_log = []
+    all_signs_log = []
     
     for db_message,db_user in db.session.query(chat_tables.Chat_log.content, chat_tables.Chat_log.user).all():
         all_messages.append(db_message)
-        all_users_log.append(db_user)
+        all_signs_log.append(db_user)
         
     socketio.emit(channel, {
         'allMessages': all_messages,
-        'allUsers': all_users_log
+        'allSigns': all_signs_log
     })
     
     
@@ -57,13 +57,13 @@ def handle_bot(messageContent):
     sign = "-Verminbot"
     print("Got an event for new message input with data:", messageContent, " from ", sign)
     
-    botStr = "~/ "
+    botRetStr = "~/ "
     
     if (cleanInput[0:5]=="about"):
-        botStr+="I am the Verminlord."
+        botRetStr+="I am the Verminlord."
         
     elif (cleanInput[0:4]=="help"):
-        botStr+="\nCommands:" + \
+        botRetStr+="\nCommands:" + \
             "\t!!about\t!!help\t!!mandalore <text>\t!!1337 <text>"
 
     elif (cleanInput[0:9]=="mandalore"):
@@ -71,11 +71,11 @@ def handle_bot(messageContent):
         print(reqResponse)
         
         try:
-            botStr+=reqResponse['contents']['translated']
+            botRetStr+=reqResponse['contents']['translated']
         except KeyError:
-            botStr+="Too many translations, try again later"
+            botRetStr+="Too many translations, try again later"
         except:
-            botStr+=reqResponse['error']['message']
+            botRetStr+=reqResponse['error']['message']
         
     elif (cleanInput[0:4]=="1337"):
         leetTranslation = cleanInput[4:].lower()
@@ -91,18 +91,18 @@ def handle_bot(messageContent):
         for key in translations:
             leetTranslation = leetTranslation.replace(key, translations[key])
 
-        botStr+=str(leetTranslation)
+        botRetStr+=str(leetTranslation)
         
     elif (cleanInput=="other 2"):
-        botStr+="Unimplemented feature 2"
+        botRetStr+="Unimplemented feature 2"
     else:
-        botStr+="That command was unrecognized. For a list of commands, type !!help"
+        botRetStr+="That command was unrecognized. For a list of commands, type !!help"
         
-    db.session.add(chat_tables.Chat_log(botStr, sign));
+    db.session.add(chat_tables.Chat_log(botRetStr, sign));
     db.session.commit();
     
     
-    print(botStr)
+    print(botRetStr)
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 @socketio.on('new message input')

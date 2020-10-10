@@ -5,7 +5,7 @@ import { Socket } from './Socket';
 
 export function Content() {
     const [messages, setMessages] = React.useState([]);
-    const [users, setUsers] = React.useState([]);
+    const [signs, setSigns] = React.useState([]);
     const [userCount, setUserCount] = React.useState(0);
     
     React.useEffect(() => {
@@ -13,7 +13,7 @@ export function Content() {
         Socket.on('messages received', (data) => {
             console.log("Received messages from server: " + data['allMessages']);
             setMessages(data['allMessages']);
-            setUsers(data['allUsers']);
+            setSigns(data['allSigns']);
         })
         
         Socket.on('updateUsers', (data) => {
@@ -34,8 +34,8 @@ export function Content() {
                             <ul className="chat-items" key={index}>{message}</ul>)}
                     </div>
                     <div id='users-wrapper'>
-                        {users.map((user, index) =>
-                            <ul className="signatures" key={index}>{user}</ul>)}
+                        {signs.map((sign, index) =>
+                            <ul className="signatures" key={index}>{sign}</ul>)}
                     </div>
                 </div>
             <InputField />
