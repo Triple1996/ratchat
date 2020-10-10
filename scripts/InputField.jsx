@@ -2,20 +2,21 @@ import * as React from 'react';
 import { Socket } from './Socket';
 
 function handleSubmit(event) {
-    let newMessage = document.getElementById("chat-input");
-
-    if (newMessage.value != "") { 
+    let newMessageLoc = document.getElementById("chat-input");
+    let newMessage = newMessageLoc.value;
+    
+    if (!/^\s*$/.test(newMessage)) { 
         Socket.emit('new message input', {
-            'message': newMessage.value,
+            'message': newMessage,
         });
-       console.log('Sent the message ' + newMessage.value + ' to server!'); 
+       console.log('Sent the message ' + newMessage + ' to server!'); 
     }
     else {
+        
         alert("Text field cannot be empty");
     }
     
-    newMessage.value = ''
-    
+    newMessageLoc.value = ''
     event.preventDefault();
 }
 

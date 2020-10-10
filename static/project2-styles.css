@@ -37,14 +37,14 @@ html {
   border-color: rgb(0, 0, 0);
   border-radius: 10px;
   text-align: left;
-  overflow: auto;
+  overflow: scroll;
   background-color: #ffece6;
   scrollbar-width: none;  /* hide scrollbars for FireFox */
   -ms-overflow-style: none;  /* IE and Edge */
 }
 #messages-wrapper {
   float: left;
-  max-width: 60%;
+  max-width: 80%;
 }
 #users-wrapper {
   float: right;
@@ -78,11 +78,14 @@ html {
 }
 
 .chat-items {
-  border-left: 3px solid black;
-  border-radius: 5px;
+  /*border: 3px solid black;*/
+  /*border-radius: 5px;*/
   margin-left: 15px;
+  min-height: 17px;
 }
 
 .signatures {
+  /*border: 3px solid black;*/
   padding-right: 10px;
+  margin-right: 10px;
 }
