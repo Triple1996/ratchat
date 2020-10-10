@@ -6,6 +6,8 @@ import flask
 import flask_sqlalchemy
 import flask_socketio
 import chat_tables
+import requests
+import json 
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 
@@ -51,19 +53,30 @@ def emit_all_messages(channel):
     
     
 def handle_bot(messageContent):
+    cleanInput=str(messageContent).strip()
     name = "-Verminbot"
     print("Got an event for new message input with data:", messageContent, " from ", name)
     
     botStr = "## "
-    cleanInput=messageContent.strip()
+    
     if (cleanInput[0:5]=="about"):
         botStr+="I am the Verminlord."
+        
     elif (cleanInput[0:4]=="help"):
-        botStr+="Commands:" + \
-            "\n!!about\n!!funtranslate\n"
+        botStr+="\nCommands:" + \
+            "\n!!about\n!!help\n!!mandalorian\n"
 
-    elif (cleanInput[0:12]=="funtranslate"):
-        botStr+="Let me translate: " + cleanInput[12:]
+    elif (cleanInput[0:11]=="mandalorian"):
+        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[12:].strip()+'"').json()
+        print(reqResponse)
+        
+        try:
+            botStr+=reqResponse['contents']['translated']
+        except KeyError:
+            botStr+="Too many translations, try again later"
+        except:
+            botStr+=reqResponse['error']['message']
+        
     elif (cleanInput[0:6]=="other 1"):
         botStr+="Unimplemented feature 1"
     elif (cleanInput=="other 2"):
@@ -73,8 +86,10 @@ def handle_bot(messageContent):
         
     db.session.add(chat_tables.Chat_log(botStr, name));
     db.session.commit();
-        
+    
+    
     print(botStr)
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 @socketio.on('new message input')
 def on_new_message(data):
@@ -85,10 +100,12 @@ def on_new_message(data):
     db.session.add(chat_tables.Chat_log(data["message"], name));
     db.session.commit();
     
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+    
     if (messageContent[0] == '!' and messageContent[1] == '!'):
         handle_bot(messageContent[2:])
         
-    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+    
 
 @app.route('/')
 def index():
