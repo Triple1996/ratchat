@@ -64,10 +64,10 @@ def handle_bot(messageContent):
         
     elif (cleanInput[0:4]=="help"):
         botStr+="\nCommands:" + \
-            "\n!!about\n!!help\n!!mandalorian\n"
+            "\n!!about\n!!help\n!!mandalorian <text> \n!!1337 <text>"
 
-    elif (cleanInput[0:11]=="mandalorian"):
-        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[12:].strip()+'"').json()
+    elif (cleanInput[0:9]=="mandalore"):
+        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
         print(reqResponse)
         
         try:
@@ -77,8 +77,21 @@ def handle_bot(messageContent):
         except:
             botStr+=reqResponse['error']['message']
         
-    elif (cleanInput[0:6]=="other 1"):
-        botStr+="Unimplemented feature 1"
+    elif (cleanInput[0:4]=="1337"):
+        leetTranslation = cleanInput[4:].lower()
+        
+        translations = {
+            'o':'0',
+            't':'7',
+            'l':'1',
+            'e':'3',
+            'a':'4'    }
+            
+        for key in translations:
+            leetTranslation = leetTranslation.replace(key, translations[key])
+
+        botStr+=str(leetTranslation)
+        
     elif (cleanInput=="other 2"):
         botStr+="Unimplemented feature 2"
     else:
