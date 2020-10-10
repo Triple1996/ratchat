@@ -38,6 +38,7 @@ html {
 }
 #messages-wrapper {
   float: left;
+  max-width: 60%;
 }
 #users-wrapper {
   float: right;

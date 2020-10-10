@@ -35,7 +35,7 @@ export function Content() {
                     </div>
                     <div id='users-wrapper'>
                         {users.map((user, index) =>
-                            <ul className="signatures" key={index}>Sent by user: {user}</ul>)}
+                            <ul className="signatures" key={index}>{user}</ul>)}
                     </div>
                 </div>
             <InputField />

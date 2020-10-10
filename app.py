@@ -48,9 +48,38 @@ def emit_all_messages(channel):
         'allMessages': all_messages,
         'allUsers': all_users_log
     })
-def handle_bot(messageContent):
-    print("That was a bot command")
     
+    
+def handle_bot(messageContent):
+    botStr = str(messageContent)
+    name = "-Verminbot"
+    print("Got an event for new message input with data:", messageContent, " from ", name)
+
+    db.session.add(chat_tables.Chat_log(botStr, name));
+    db.session.commit();
+        
+    print(botStr)
+    
+@socketio.on('new message input')
+def on_new_message(data):
+    name = "Sent by user: " + str(userIndex[flask.request.sid])
+    print("Got an event for new message input with data:", data, " from ", name)
+    messageContent = data["message"]
+    
+    db.session.add(chat_tables.Chat_log(data["message"], name));
+    db.session.commit();
+    
+    if (messageContent[0] == '!' and messageContent[1] == '!'):
+        handle_bot(messageContent[2:])
+        
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+
+@app.route('/')
+def index():
+    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+
+    return flask.render_template("index.html")
+
 @socketio.on('connect')
 def on_connect():
     sid = flask.request.sid
@@ -79,25 +108,6 @@ def on_disconnect():
         'user_count': len(user_list)
     })
     
-@socketio.on('new message input')
-def on_new_message(data):
-    name = userIndex[flask.request.sid]
-    print("Got an event for new message input with data:", data, " from ", name)
-    messageContent = data["message"]
-    
-    #db.session.add(chat_tables.Chat_log(data["message"], name));
-    #db.session.commit();
-    
-    if (messageContent[0] == '!' and messageContent[1] == '!'):
-        handle_bot(messageContent)
-    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
-
-@app.route('/')
-def index():
-    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
-
-    return flask.render_template("index.html")
-
 if __name__ == '__main__': 
     socketio.run(
         app,
