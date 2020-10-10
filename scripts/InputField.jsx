@@ -3,11 +3,17 @@ import { Socket } from './Socket';
 
 function handleSubmit(event) {
     let newMessage = document.getElementById("chat-input");
-    Socket.emit('new message input', {
-        'message': newMessage.value,
-    });
+
+    if (newMessage.value != "") { 
+        Socket.emit('new message input', {
+            'message': newMessage.value,
+        });
+       console.log('Sent the message ' + newMessage.value + ' to server!'); 
+    }
+    else {
+        alert("Text field cannot be empty");
+    }
     
-    console.log('Sent the message ' + newMessage.value + ' to server!');
     newMessage.value = ''
     
     event.preventDefault();
