@@ -55,6 +55,7 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
   c) Preview Running Application (might have to clear your cache by doing a hard refresh)    
 
 # Pushing to Heroku
+If you want to deploy
 1. If you want to deploy this app onto Heroku, you must first register for an account at: https://signup.heroku.com/login
 2. Install heroku CLI by running `npm install -g heroku`
 3. Log-in to heroku: `heroku login -i`
