@@ -117,7 +117,7 @@ def handle_bot(messageContent):
     
 def randomName():
     adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
-    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb']
+    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb', 'heathen']
     adj = random.choice(adjList)
     noun = random.choice(nounList)
     randName = adj + '-' + noun
@@ -125,7 +125,7 @@ def randomName():
     
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "From: " + str(userIndex[flask.request.sid])
+    sign = "Sent by: " + str(userIndex[flask.request.sid])
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
