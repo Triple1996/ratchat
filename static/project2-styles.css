@@ -46,7 +46,7 @@ html {
 }
 #messages-wrapper {
   float: left;
-  max-width: 80%;
+  max-width: 60%;
 }
 #users-wrapper {
   float: right;
@@ -84,6 +84,7 @@ html {
   border-radius: 5px;
   margin-left: 15px;
   height: 45px;
+  max-width: 60%;
 }
 
 .signatures {
@@ -91,6 +92,7 @@ html {
   padding-right: 10px;
   margin-right: 10px;
   height: 45px;
+  max-width: 40%;
 }
 #anchor {
   overflow-anchor: auto;
