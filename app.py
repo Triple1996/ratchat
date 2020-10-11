@@ -1,6 +1,6 @@
 # app.py
 from os.path import join, dirname
-# import dotenv
+import dotenv
 import os
 import flask
 import flask_sqlalchemy
@@ -16,10 +16,11 @@ app = flask.Flask(__name__)
 
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
-
-# dotenv_path = join(dirname(__file__), 'sql.env')
-# dotenv.load_dotenv(dotenv_path)
-
+try:
+    dotenv_path = join(dirname(__file__), 'sql.env')
+    dotenv.load_dotenv(dotenv_path)
+except ImportError: 
+    print("Caught error: ImportError")
 database_uri = os.environ['DATABASE_URL']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
