@@ -21,7 +21,7 @@ try:
     dotenv_path = join(dirname(__file__), 'sql.env')
     dotenv.load_dotenv(dotenv_path)
 except Exception as e: 
-    print("Caught error when running load_env: " +  str(e))
+    print("Handled error: " +  str(e))
     
 database_uri = os.environ['DATABASE_URL']
 
