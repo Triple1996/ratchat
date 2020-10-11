@@ -30,7 +30,6 @@ html {
 }
 
 #chat-container {
-  padding-top: 10px;
   height: 50%;
   width: 50%;
   margin: auto;
@@ -46,10 +45,11 @@ html {
 }
 #messages-wrapper {
   float: left;
-  max-width: 60%;
+  width: 60%;
 }
 #users-wrapper {
   float: right;
+  width: 40%;
 }
 #input-ui {
   padding-top: 10px;
@@ -80,6 +80,7 @@ html {
 }
 
 .chat-items {
+  /*border: 3px solid black;*/
   border-left: 3px solid black;
   border-radius: 5px;
   margin-left: 15px;
@@ -88,11 +89,13 @@ html {
 }
 
 .signatures {
-  position: relative;
+  /*border: 3px solid black;*/
+  border-right: 3px solid black;
+  border-radius: 5px;
   padding-right: 10px;
   margin-right: 10px;
   height: 45px;
-  max-width: 40%;
+  max-width: 80%;
 }
 #anchor {
   overflow-anchor: auto;
