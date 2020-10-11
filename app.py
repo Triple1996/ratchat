@@ -20,7 +20,7 @@ socketio.init_app(app, cors_allowed_origins="*")
 try:
     dotenv_path = join(dirname(__file__), 'sql.env')
     dotenv.load_dotenv(dotenv_path)
-except ImportError: 
+except: 
     print("Caught error: ImportError")
     
 database_uri = os.environ['DATABASE_URL']
