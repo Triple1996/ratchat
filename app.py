@@ -27,7 +27,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 # list of current users 
 user_list = []
 userIndex = {}
-userId = 0
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
@@ -63,12 +62,15 @@ def handle_bot(messageContent):
     
     botRetStr = "~/ "
     
+    # !!about
     if (cleanInput[0:5]=="about"):
         botRetStr+="I am the Verminlord."
-        
+    
+    # !!help
     elif (cleanInput[0:4]=="help"):
         botRetStr+="Commands: !!about; !!help;  !!catfact; !!mandalore <text>; !!1337 <text>"
 
+    # !!mandalore
     elif (cleanInput[0:9]=="mandalore"):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
 
@@ -78,7 +80,8 @@ def handle_bot(messageContent):
             botRetStr+="Too many translations, try again later"
         except:
             botRetStr+=reqResponse['error']['message']
-        
+    
+    # !!1337
     elif (cleanInput[0:4]=="1337"):
         leetTranslation = cleanInput[4:].lower()
         
@@ -95,30 +98,40 @@ def handle_bot(messageContent):
 
         botRetStr+=str(leetTranslation)
         
+    # !!catfact
     elif (cleanInput[0:7]=="catfact"):
         reqResponse = requests.get('https://cat-fact.herokuapp.com/facts').json()['all']
         catFact = random.choice(reqResponse)['text']
         while len(catFact) > 115:
             catFact = random.choice(reqResponse)['text']
         botRetStr+=catFact
+        
+    ## !!unrecognized
     else:
         botRetStr+="That command was unrecognized. For a list of commands, type !!help"
         
+    # commit to DB and update everyone's chat
     db.session.add(chat_tables.Chat_log(botRetStr, sign));
     db.session.commit();
-    
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+    
+def randomName():
+    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'weeb', 'treasonous', 'ornery']
+    nounList = ['cracker', 'dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate']
+    adj = random.choice(adjList)
+    noun = random.choice(nounList)
+    randName = adj + '-' + noun
+    return randName
     
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by user: " + str(userIndex[flask.request.sid])
+    sign = "Sent by: " + str(userIndex[flask.request.sid])
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
+    # commit to DB and update everyone's chat
     db.session.add(chat_tables.Chat_log(data["message"], sign));
     db.session.commit();
-    
-    # update everyone's chat
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
     # if bot command (first two chars are !!)
@@ -137,8 +150,7 @@ def index():
 def on_connect():
     sid = flask.request.sid
     user_list.append(sid)
-    global userId
-    userId+=1
+    userId = randomName()
     userIndex[sid] = userId
     print('Someone connected with sid: ' + sid + "\t user list:\n" + str(userIndex) )
     socketio.emit('connected', {
