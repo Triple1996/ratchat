@@ -67,7 +67,7 @@ def handle_bot(messageContent):
         botRetStr+="I am the Verminlord."
         
     elif (cleanInput[0:4]=="help"):
-        botRetStr+="Commands: !!about; !!help; !!mandalore <text>; !!1337 <text>; !!catfact"
+        botRetStr+="Commands: !!about; !!help;  !!catfact; !!mandalore <text>; !!1337 <text>"
 
     elif (cleanInput[0:9]=="mandalore"):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
