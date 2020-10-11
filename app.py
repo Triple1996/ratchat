@@ -1,6 +1,6 @@
 # app.py
 from os.path import join, dirname
-import dotenv
+# import dotenv
 import os
 import flask
 import flask_sqlalchemy
