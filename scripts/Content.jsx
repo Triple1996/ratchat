@@ -13,7 +13,6 @@ export function Content() {
         Socket.on('messages received', (data) => {
             console.log("Received messages from server: " + data['allMessages']);
             setMessages(data['allMessages']);
-            setSigns(data['allSigns']);
         })
         
         Socket.on('updateUsers', (data) => {
@@ -31,11 +30,11 @@ export function Content() {
                 <div id='chat-container'>
                     <div id='messages-wrapper'>
                         {messages.map((message, index) =>
-                            <ul className="chat-items" key={index}>{message}</ul>)}
+                            <ul className="chat-items" key={index}>{message[0]}</ul> )}
                     </div>
                     <div id='users-wrapper'>
-                        {signs.map((sign, index) =>
-                            <ul className="signatures" key={index}>{sign}</ul>)}
+                        {messages.map((sign, index) =>
+                            <ul className="signatures" key={index}>{sign[1]}</ul>)}
                         <div id="anchor"></div>
                     </div>
                     

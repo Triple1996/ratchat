@@ -43,10 +43,15 @@ def emit_all_messages(channel):
     for db_message,db_user in db.session.query(chat_tables.Chat_log.content, chat_tables.Chat_log.user).all():
         all_messages.append(db_message)
         all_signs_log.append(db_user)
-        
+    
+    all_chat = []
+    for i in range(0,len(all_messages)):
+        all_chat.append([all_messages[i], all_signs_log[i]])
+    
+    print(all_chat)
+    
     socketio.emit(channel, {
-        'allMessages': all_messages,
-        'allSigns': all_signs_log
+        'allMessages': all_chat
     })
     
     
