@@ -51,3 +51,10 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
   a) `npm run watch`. If prompted to install webpack-cli, type "yes"    
   b) In a new terminal, `python app.py`    
   c) Preview Running Application (might have to clear your cache by doing a hard refresh)    
+
+
+I wanted to make it so the scroll stays all the way down, and I seemed to have inadvertantly found a fix. While implementing another feature,
+I limited the number of chats saved to 25 (the number probably doesn't matter). Then I noticed the chats were being grabbed from the beginning 
+of the DB table, so I told the query to order by id, descending. Then, because the chats are now out of order, in Content.jsx I ran the array 
+through Array.reverse() before passing it into the setMessages state hook. Upon testing my code, I noticed that after reaching the limit of messages,
+the chat stays scrolled to the bottom. This is probably because the <ul></ul> tag is now a fixed-length, and so the window would not have to scroll any more.
