@@ -1,3 +1,5 @@
+# Simple chatroom program
+
 # Set up React  
 0. `cd ~/environment && git clone https://github.com/NJIT-CS490/project2-m1-aaa237 && cd project2-m1-aaa237`    
 1. Install your stuff!    
@@ -52,7 +54,29 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
   b) In a new terminal, `python app.py`    
   c) Preview Running Application (might have to clear your cache by doing a hard refresh)    
 
+# Pushing to Heroku
+1. If you want to deploy this app onto Heroku, you must first register for an account at: https://signup.heroku.com/login
+2. Install heroku CLI by running `npm install -g heroku`
+3. Log-in to heroku: `heroku login -i`
+4. Create new heroku app:  `heroku create`
+5. Create a DB on heroku: `heroku addons:create heroku-postgresql:hobby-dev`
+6. run `heroku pg:wait`
+   ## Before we push our DB to heroku, make sure we are the owner of our DB
+    a) `psql`
+    b)`ALTER DATABASE postgres OWNER TO [user_name_from_7b];`
+    c)`\du` Check that you user is listed and has attributes: `Superuser,Create role, Create DB, Replication`
+      i. if you are missing a role, you can add it with `ALTER ROLE [user_name_from_7b] WITH [CREATEROLE\CREATEDB\REPLICATION]`
+    d) `\l` Check that your database "postgres" has your user listed as the owner
+7. Push our db to heroku: `PGUSER=[user_name_from_7b] heroku pg:push postgres DATABASE_URL` If this returns `pg_restore errored with 1`, don't worry about it
+8. Configure Procfile with command needed to run your app (for this repo it is `web: python app.py`)
+9. Configure requirements.txt with all requirements needed to run your app (for this repo it is filled in using `pip freeze > requirements.txt`
+10. Finally, push your app up to heroku with `git push heroku master`
 
+11. Navigate to your new heroku site
+  ## Make sure the url says https:// and you see a secured connection, otherwise list items may load in reverse
+
+
+# Questions
 I wanted to make it so the scroll stays all the way down, and I seemed to have inadvertantly found a fix. While implementing another feature,
 I limited the number of chats saved to 25 (the number probably doesn't matter). Then I noticed the chats were being grabbed from the beginning 
 of the DB table, so I told the query to order by id, descending. Then, because the chats are now out of order, in Content.jsx I ran the array 
