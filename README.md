@@ -62,6 +62,7 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 5. Create a DB on heroku: `heroku addons:create heroku-postgresql:hobby-dev`
 6. Run `heroku pg:wait`
 7. Make sure we are the owner of our DB
+
     a) `psql`    
     b) `ALTER DATABASE postgres OWNER TO [user_name_from_7b];`  
     c) `\du` Check that you user is listed and has attributes: `Superuser,Create role, Create DB, Replication`
