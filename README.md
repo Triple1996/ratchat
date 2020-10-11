@@ -72,6 +72,7 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 
   
 8. Push our db to heroku: `PGUSER=[user_name_from_7b] heroku pg:push postgres DATABASE_URL` If this returns "pg_restore errored with 1", that's okay!
+    a) If you are getting an error "peer authentication failed for user", try running just`heroku pg:push postgres DATABASE_URL`
 9. Configure Procfile with command needed to run your app (for this repo it is `web: python app.py`)
 10. Configure requirements.txt with all requirements needed to run your app (for this repo it is filled in using `pip freeze > requirements.txt`
 11. Finally, push your app up to heroku with `git push heroku master`
