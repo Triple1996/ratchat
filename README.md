@@ -64,14 +64,15 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 7. Make sure we are the owner of our DB
 
     a) `psql`    
-    b) `\du` look for ec2-user as a user    
-    c) `\l` look for ec2-user as a database 
+    b) `ALTER DATABASE postgres OWNER TO [user_name_from_7b];`  
+    c) `\du` Check that you user is listed and has attributes: `Superuser,Create role, Create DB, Replication`
+    d) `\l` Check that your database "postgres" has your user listed as the owner
 
     a) `psql`
-    b) `ALTER DATABASE postgres OWNER TO [user_name_from_7b];`
-    c) `\du` Check that you user is listed and has attributes: `Superuser,Create role, Create DB, Replication`
+    b) 
+    c) 
       i. if you are missing a role, you can add it with `ALTER ROLE [user_name_from_7b] WITH [CREATEROLE\CREATEDB\REPLICATION]`
-    d) `\l` Check that your database "postgres" has your user listed as the owner
+    d) 
   
 8. Push our db to heroku: `PGUSER=[user_name_from_7b] heroku pg:push postgres DATABASE_URL` If this returns "pg_restore errored with 1", that's okay!
 9. Configure Procfile with command needed to run your app (for this repo it is `web: python app.py`)
