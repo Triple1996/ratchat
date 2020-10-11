@@ -34,7 +34,7 @@ export function Content() {
                     <div id='users-wrapper'>
                         {messages.map((sign, index) =>
                             <ul className="signatures" key={index}>{sign[1]}</ul>)}
-                        <div id="anchor"></div>
+                        <ul id="anchor"></ul>
                     </div>
                     
                 </div>
