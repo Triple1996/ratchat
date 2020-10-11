@@ -38,7 +38,7 @@ If you see any error messages, make sure you use `sudo pip` or `sudo npm`. If it
     b) I recommend 4-5 characters - it doesn't have to be very secure. Remember this password!  
         `create user [some_username_here] superuser password '[some_unique_new_password_here]';`    
     c) `\q` to quit out of sql    
-8. `cd` into `project2-m1-aaa237` and make a new file called `sql.env` and add `DATABASE_URL=postgresql://[your_username_here]:[your_password_here]@localhost            /postgres` in it  
+8. `cd` into `project2-m1-aaa237` and make a new file called `sql.env` and add `DATABASE_URL=postgresql://[your_username_here]:[your_password_here]@localhost/postgres` in it  
 9. Replace the [bracketed_values] with the values you put in 7. b)  
   
   
@@ -60,14 +60,14 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 3. Log-in to heroku: `heroku login -i`
 4. Create new heroku app:  `heroku create`
 5. Create a DB on heroku: `heroku addons:create heroku-postgresql:hobby-dev`
-6. run `heroku pg:wait`
+6. Run `heroku pg:wait`
    ## Before we push our DB to heroku, make sure we are the owner of our DB
     a) `psql`
     b)`ALTER DATABASE postgres OWNER TO [user_name_from_7b];`
     c)`\du` Check that you user is listed and has attributes: `Superuser,Create role, Create DB, Replication`
       i. if you are missing a role, you can add it with `ALTER ROLE [user_name_from_7b] WITH [CREATEROLE\CREATEDB\REPLICATION]`
     d) `\l` Check that your database "postgres" has your user listed as the owner
-7. Push our db to heroku: `PGUSER=[user_name_from_7b] heroku pg:push postgres DATABASE_URL` If this returns `pg_restore errored with 1`, don't worry about it
+7. Push our db to heroku: `PGUSER=[user_name_from_7b] heroku pg:push postgres DATABASE_URL` If this returns "pg_restore errored with 1", that's okay!
 8. Configure Procfile with command needed to run your app (for this repo it is `web: python app.py`)
 9. Configure requirements.txt with all requirements needed to run your app (for this repo it is filled in using `pip freeze > requirements.txt`
 10. Finally, push your app up to heroku with `git push heroku master`
