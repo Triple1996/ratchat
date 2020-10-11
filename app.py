@@ -8,6 +8,7 @@ import flask_socketio
 import chat_tables
 import requests
 import json 
+import random
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 
@@ -94,8 +95,12 @@ def handle_bot(messageContent):
 
         botRetStr+=str(leetTranslation)
         
-    elif (cleanInput=="other 2"):
-        botRetStr+="Unimplemented feature 2"
+    elif (cleanInput[0:7]=="catfact"):
+        reqResponse = requests.get('https://cat-fact.herokuapp.com/facts').json()['all']
+        catFact = random.choice(reqResponse)['text']
+        while len(catFact) > 115:
+            catFact = random.choice(reqResponse)['text']
+        botRetStr+=catFact
     else:
         botRetStr+="That command was unrecognized. For a list of commands, type !!help"
         
