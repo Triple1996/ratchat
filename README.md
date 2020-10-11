@@ -75,8 +75,10 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 9. Configure Procfile with command needed to run your app (for this repo it is `web: python app.py`)
 10. Configure requirements.txt with all requirements needed to run your app (for this repo it is filled in using `pip freeze > requirements.txt`
 11. Finally, push your app up to heroku with `git push heroku master`
+    a)
 
 12. Navigate to your new heroku site
+  a)
   ## Make sure the url says https:// and you see a secured connection, otherwise list items may load in reverse
 
 
