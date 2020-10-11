@@ -71,10 +71,10 @@ def handle_bot(messageContent):
     
     # !!help
     elif (cleanInput[0:4]=="help"):
-        botRetStr+="Commands: !!about; !!help;  !!catfact; !!mandalore <text>; !!1337 <text>"
+        botRetStr+="Commands: !!about; !!catfact; !!1337 <text>; !!funtranslate <text>; !!help;"
 
     # !!mandalore
-    elif (cleanInput[0:9]=="mandalore"):
+    elif (cleanInput[0:12]=="funtranslate"):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
 
         try:
