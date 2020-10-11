@@ -36,7 +36,7 @@ If you see any error messages, make sure you use `sudo pip` or `sudo npm`. If it
     b) I recommend 4-5 characters - it doesn't have to be very secure. Remember this password!  
         `create user [some_username_here] superuser password '[some_unique_new_password_here]';`    
     c) `\q` to quit out of sql    
-8. `cd` into `lect11` and make a new file called `sql.env` and add `SQL_USER=` and `SQL_PASSWORD=` in it  
+8. `cd` into `project2-m1-aaa237` and make a new file called `sql.env` and add `DATABASE_URL=postgresql://[your_username_here]:[your_password_here]@localhost            /postgres` in it  
 9. Fill in those values with the values you put in 7. b)  
   
   
