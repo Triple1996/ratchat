@@ -57,7 +57,7 @@ def emit_all_messages(channel):
     
 def handle_bot(messageContent):
     cleanInput=str(messageContent).strip()
-    sign = "VERMINBOT"
+    sign = "@VERMINBOT"
     print("Verminbot processing command: ", messageContent)
     
     botRetStr = "~/ "
@@ -117,7 +117,7 @@ def handle_bot(messageContent):
     
 def randomName():
     adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
-    nounList = ['cracker', 'dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb']
+    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb']
     adj = random.choice(adjList)
     noun = random.choice(nounList)
     randName = adj + '-' + noun
