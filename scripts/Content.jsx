@@ -5,7 +5,6 @@ import { Socket } from './Socket';
 
 export function Content() {
     const [messages, setMessages] = React.useState([]);
-    const [signs, setSigns] = React.useState([]);
     const [userCount, setUserCount] = React.useState(0);
     
     React.useEffect(() => {
