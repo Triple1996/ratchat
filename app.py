@@ -57,7 +57,7 @@ def emit_all_messages(channel):
     
 def handle_bot(messageContent):
     cleanInput=str(messageContent).strip()
-    sign = "-Verminbot"
+    sign = "VERMINBOT"
     print("Verminbot processing command: ", messageContent)
     
     botRetStr = "~/ "
@@ -116,8 +116,8 @@ def handle_bot(messageContent):
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 def randomName():
-    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'weeb', 'treasonous', 'ornery']
-    nounList = ['cracker', 'dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate']
+    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
+    nounList = ['cracker', 'dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb']
     adj = random.choice(adjList)
     noun = random.choice(nounList)
     randName = adj + '-' + noun
@@ -125,7 +125,7 @@ def randomName():
     
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by: " + str(userIndex[flask.request.sid])
+    sign = "From: " + str(userIndex[flask.request.sid])
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
