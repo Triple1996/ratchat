@@ -11,7 +11,7 @@ export function Content() {
         
         Socket.on('messages received', (data) => {
             console.log("Received messages from server: " + data['allMessages']);
-            setMessages(data['allMessages']);
+            setMessages(data['allMessages'].reverse());
         })
         
         Socket.on('updateUsers', (data) => {
