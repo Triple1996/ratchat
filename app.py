@@ -17,8 +17,8 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-dotenv_path = join(dirname(__file__), 'sql.env')
-dotenv.load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), 'sql.env')
+# dotenv.load_dotenv(dotenv_path)
 
 database_uri = os.environ['DATABASE_URL']
 
