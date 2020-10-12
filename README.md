@@ -87,14 +87,19 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 
 # Questions
 # Known Problems
-    a) The chat will be delayed until the bot finishes also writing its message out. emit_all_messages is called before the bot code runs, yet it still seems to wait 
-    for it to finish before displaying all messages on screen. The only time it is really noticeable is if one of the APIs has a slow connection or is being rate-
-    limited. In these cases, the user's own bot command will not show on screen until the bot terminates its connection to the endpoint.
-    b) The chat displays the most recent 50 messages. If there are not yet 50 messages on screen, the chat will not stay anchored to the bottom. The cause of this is 
-    likely because while there are fewer than 50 messages, the list item grows dynamically, and so the user's position in the scroll bar changes. But once the limit 
-    has been reached, the size is static.
-    c) On very rare cases, chat messages will get inputted at the top or in the middle of the list. This usually only happens when testing locally and the chat is 
-    being spammed quickly, and the exact cause is undetermined. Given more time, I would investigate if previous chats from a previous session are somehow ignored.
+    a) The chat will be delayed until the bot finishes also writing its message out. emit_all_messages is called before 
+    the bot code runs, yet it still seems to wait for it to finish before displaying all messages on screen. The only 
+    time it is really noticeable is if one of the APIs has a slow connection or is being rate-limited. In these cases, 
+    the user's own bot command will not show on screen until the bot terminates its connection to the endpoint.
+    
+    b) The chat displays the most recent 50 messages. If there are not yet 50 messages on screen, the chat will not 
+    stay anchored to the bottom. The cause of this is likely because while there are fewer than 50 messages, the list 
+    item grows dynamically, and so the user's position in the scroll bar changes. But once the limit has been reached, 
+    the size is static.
+    
+    c) On very rare cases, chat messages will get inputted at the top or in the middle of the list. This usually only 
+    happens when testing locally and the chat is being spammed quickly, and the exact cause is undetermined. Given more 
+    time, I would investigate if previous chats from a previous session are somehow ignored.
 
 # Development Obstacles
     a) I spent a lot of time trying to make it so the chat stays scrolled to the bottom. I attempted to use a CSS attribute 
@@ -102,7 +107,7 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
     "anchor" div that hangs beneath the most recent message). However, it did not seem to work. I inadvertently got this 
     effect when I limited the chat to only 50 messages.
     
-    b)Trying to format the signature to float to the right while the message stays to the left served to be a difficult 
+    b) Trying to format the signature to float to the right while the message stays to the left served to be a difficult 
     problem. When it would float right, it would still be about halfway in the middle of the chat window and sometimes 
     it would move depending on the message length. Instead, I decided to generate two lists - one for messages and one 
     for the signatures. This way, each signature element could be formatted completely independent from its corresponding 
