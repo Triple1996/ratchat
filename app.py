@@ -75,7 +75,7 @@ def handle_bot(messageContent):
 
     # !!mandalore
     elif (cleanInput[0:12]=="funtranslate"):
-        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[9:].strip()+'"').json()
+        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[12:].strip()+'"').json()
 
         try:
             botRetStr+=reqResponse['contents']['translated']
