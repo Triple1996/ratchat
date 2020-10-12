@@ -86,8 +86,13 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 
 
 # Questions
-I wanted to make it so the scroll stays all the way down, and I seemed to have inadvertantly found a fix. While implementing another feature,
-I limited the number of chats saved to 25 (the number probably doesn't matter). Then I noticed the chats were being grabbed from the beginning 
-of the DB table, so I told the query to order by id, descending. Then, because the chats are now out of order, in Content.jsx I ran the array 
-through Array.reverse() before passing it into the setMessages state hook. Upon testing my code, I noticed that after reaching the limit of messages,
-the chat stays scrolled to the bottom. This is probably because the <ul></ul> tag is now a fixed-length, and so the window would not have to scroll any more.
+# Known Problems
+    a) The chat will be delayed until the bot finishes also writing its message out. emit_all_messages is called before the bot code runs, yet it still seems to wait for it to finish before displaying all messages on screen. The only time it is really noticeable is if one of the APIs has a slow connection or is being rate-limited. In these cases, the user's own bot command will not show on screen until the bot terminates its connection to the endpoint.
+    b) The chat displays the most recent 50 messages. If there are not yet 50 messages on screen, the chat will not stay anchored to the bottom. The cause of this is likely because while there are fewer than 50 messages, the list item grows dynamically, and so the user's position in the scroll bar changes. But once the limit has been reached, the size is static.
+    c) On very rare cases, chat messages will get inputted at the top or in the middle of the list. This usually only happens when testing locally and the chat is being spammed quickly, and the exact cause is undetermined. Given more time, I would investigate if previous chats from a previous session are somehow ignored.
+
+# Development Obstacles
+    a) I spent a lot of time trying to make it so the chat stays scrolled to the bottom. I attempted to use a CSS attribute I found called `over-flow: auto;`, which was supposed to keep whatever HTML element in view (in this case an invisible "anchor" div that hangs beneath the most recent message). However, it did not seem to work. I inadvertently got this effect when I limited the chat to only 50 messages.
+    b)Trying to format the signature to float to the right while the message stays to the left served to be a difficult problem. When it would float right, it would still be about halfway in the middle of the chat window and sometimes it would move depending on the message length. Instead, I decided to generate two lists - one for messages and one for the signatures. This way, each signature element could be formatted completely independent from its corresponding message
+    c) Because the page is generating two lists, the corresponding items would sometimes get misaligned. The first time this was noticed was when sending blank messages, so a check was added to the input field so you couldn't send empty messages. Then I noticed it would happen depending on the size of the message/username. This issue was fixed by simply declaring a fixed height for all messages, in accordance with the 120 character limit.
+    
