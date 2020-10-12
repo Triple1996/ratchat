@@ -1,7 +1,7 @@
 import requests
 import random
 
-class Ratbot:
+class Verminbot:
     
     BOT_PREFIX = '~/ '
     ABOUT_COMMAND='about'

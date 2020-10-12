@@ -9,7 +9,7 @@ import chat_tables
 import requests
 import json 
 import random
-from ratbot import Ratbot
+from verminbot import Verminbot
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 
@@ -38,7 +38,7 @@ db.session.commit()
 # list of current users 
 user_list = []
 userIndex = {}
-bot = Ratbot()
+bot = Verminbot()
 
 
 def emit_all_messages(channel):
@@ -79,9 +79,9 @@ def on_new_message(data):
     
     # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
-        #handle_bot(messageContent[2:])
         botRetStr = bot.handle_bot(messageContent[2:])
-        db.session.add(chat_tables.Chat_log(botRetStr, sign));
+        botSign='@VERMINBOT'
+        db.session.add(chat_tables.Chat_log(botRetStr, botSign));
         db.session.commit();
         emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
         
