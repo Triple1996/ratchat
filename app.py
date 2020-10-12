@@ -80,8 +80,7 @@ def on_new_message(data):
     # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
         botRetStr = bot.handle_command(messageContent[2:])
-        botSign='@VERMINBOT'
-        db.session.add(chat_tables.Chat_log(botRetStr, botSign));
+        db.session.add(chat_tables.Chat_log(botRetStr,'@VERMINBOT'));
         db.session.commit();
         emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
         
