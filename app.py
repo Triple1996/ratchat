@@ -46,7 +46,9 @@ def emit_all_messages(channel):
     all_messages = []
     all_signs_log = []
     
-    for db_message,db_user in db.session.query(chat_tables.Chat_log.content, chat_tables.Chat_log.user).order_by(chat_tables.Chat_log.id.desc()).limit(50).all():
+    for db_message,db_user in \
+            db.session.query(chat_tables.Chat_log.content, chat_tables.Chat_log.user) \
+            .order_by(chat_tables.Chat_log.id.desc()).limit(50).all():
         all_messages.append(db_message)
         all_signs_log.append(db_user)
     
@@ -59,8 +61,10 @@ def emit_all_messages(channel):
     })
     
 def randomName():
-    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
-    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 'deviate', 'weeb', 'heathen']
+    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate',
+                'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
+    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 'debaucher', 
+                'deviate', 'weeb', 'heathen']
     adj = random.choice(adjList)
     noun = random.choice(nounList)
     randName = adj + '-' + noun
