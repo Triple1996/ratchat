@@ -37,7 +37,7 @@ class Verminbot:
             return self.BOT_PREFIX + self.catfactCommand()
             
         else:
-            return "That command was unrecognized. \
+            return self.BOT_PREFIX + "That command was unrecognized. \
                     For a list of commands, type !!help"
         
         
