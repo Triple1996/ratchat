@@ -10,15 +10,17 @@ class Verminbot:
     LEET_COMMAND='1337'
     CAT_COMMAND='catfact'
     
+    
     def __init__(self):
         self.bot = "ratbot"
     
-    def handle_bot(self, messageContent):
     
+    def handle_command(self, messageContent):
+        # strip spaces and figure out what command is being called
         cleanInput=str(messageContent).strip()
-        # !!about
         if (cleanInput[0:len(self.ABOUT_COMMAND)]==self.ABOUT_COMMAND):
             return self.BOT_PREFIX + self.aboutCommand()
+            
         elif (cleanInput[0:len(self.HELP_COMMAND)]==self.HELP_COMMAND):
             return self.BOT_PREFIX + self.helpCommand()
 
@@ -30,6 +32,7 @@ class Verminbot:
             
         elif (cleanInput[0:len(self.CAT_COMMAND)]==self.CAT_COMMAND):
             return self.BOT_PREFIX + self.catfactCommand()
+            
         else:
             return "That command was unrecognized. For a list of commands, type !!help"
         
@@ -37,8 +40,10 @@ class Verminbot:
     def aboutCommand(self):
         return "I am the Verminlord."
     
+    
     def helpCommand(self):
         return "Commands: !!about; !!catfact; !!1337 <text>; !!funtranslate <text>; !!help;"
+    
     
     def funtranslateCommand(self, toTranslate):
         reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="' + toTranslate + '"').json()
