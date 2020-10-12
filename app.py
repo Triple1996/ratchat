@@ -9,6 +9,7 @@ import chat_tables
 import requests
 import json 
 import random
+from ratbot import Ratbot
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 
@@ -27,16 +28,18 @@ database_uri = os.environ['DATABASE_URL']
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 
-# list of current users 
-user_list = []
-userIndex = {}
-
 db = flask_sqlalchemy.SQLAlchemy(app)
 db.init_app(app)
 db.app = app
 
 db.create_all()
 db.session.commit()
+
+# list of current users 
+user_list = []
+userIndex = {}
+bot = Ratbot()
+
 
 def emit_all_messages(channel):
 
@@ -51,72 +54,9 @@ def emit_all_messages(channel):
     for i in range(0,len(all_messages)):
         all_chat.append([all_messages[i], all_signs_log[i]])
     
-    print(all_chat)
-    
     socketio.emit(channel, {
         'allMessages': all_chat
     })
-    
-    
-def handle_bot(messageContent):
-    cleanInput=str(messageContent).strip()
-    sign = "@VERMINBOT"
-    print("Verminbot processing command: ", messageContent)
-    
-    botRetStr = "~/ "
-    
-    # !!about
-    if (cleanInput[0:5]=="about"):
-        botRetStr+="I am the Verminlord."
-    
-    # !!help
-    elif (cleanInput[0:4]=="help"):
-        botRetStr+="Commands: !!about; !!catfact; !!1337 <text>; !!funtranslate <text>; !!help;"
-
-    # !!mandalore
-    elif (cleanInput[0:12]=="funtranslate"):
-        reqResponse = requests.get('https://api.funtranslations.com/translate/mandalorian.json?text="'+cleanInput[12:].strip()+'"').json()
-
-        try:
-            botRetStr+=reqResponse['contents']['translated']
-        except KeyError:
-            botRetStr+="Too many translations, try again later"
-        except:
-            botRetStr+=reqResponse['error']['message']
-    
-    # !!1337
-    elif (cleanInput[0:4]=="1337"):
-        leetTranslation = cleanInput[4:].lower()
-        
-        translations = {
-            'o':'0',
-            't':'7',
-            'l':'1',
-            'e':'3',
-            'a':'4',
-            's':'5'    }
-            
-        for key in translations:
-            leetTranslation = leetTranslation.replace(key, translations[key])
-
-        botRetStr+=str(leetTranslation)
-        
-    # !!catfact
-    elif (cleanInput[0:7]=="catfact"):
-        reqResponse = requests.get('https://cat-fact.herokuapp.com/facts').json()['all']
-        catFact = random.choice(reqResponse)['text']
-        while len(catFact) > 115:
-            catFact = random.choice(reqResponse)['text']
-        botRetStr+=catFact
-        
-    ## !!unrecognized
-    else:
-        botRetStr+="That command was unrecognized. For a list of commands, type !!help"
-        
-    # commit to DB and update everyone's chat
-    db.session.add(chat_tables.Chat_log(botRetStr, sign));
-    db.session.commit();
-    emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
 def randomName():
     adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 'degenerate', 'decayed', 'washed-up', 'overripe', 'treasonous', 'ornery']
@@ -139,15 +79,17 @@ def on_new_message(data):
     
     # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
-        handle_bot(messageContent[2:])
+        #handle_bot(messageContent[2:])
+        botRetStr = bot.handle_bot(messageContent[2:])
+        db.session.add(chat_tables.Chat_log(botRetStr, sign));
+        db.session.commit();
+        emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
         
-    
-
 @app.route('/')
 def index():
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
-
     return flask.render_template("index.html")
+
 
 @socketio.on('connect')
 def on_connect():
