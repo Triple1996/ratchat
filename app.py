@@ -36,7 +36,7 @@ db.create_all()
 db.session.commit()
 
 # list of current users 
-user_list = []
+auth_user_list = []
 userIndex = {}
 bot = Verminbot()
 
@@ -60,18 +60,7 @@ def emit_all_messages(channel):
     socketio.emit(channel, {
         'allMessages': all_chat
     })
-    
-def randomName():
-    adjList = ['salty', 'greasy', 'slimy', 'shriveled', 'cracked', 
-                'degenerate', 'decayed', 'washed-up', 'overripe', 
-                'treasonous', 'ornery']
-    nounList = ['dog', 'seamonkey', 'babboon', 'degen', 'decadent', 
-                'debaucher', 'deviate', 'weeb', 'heathen']
-    adj = random.choice(adjList)
-    noun = random.choice(nounList)
-    randName = adj + '-' + noun
-    return randName
-    
+
 @socketio.on('new message input')
 def on_new_message(data):
     sign = "Sent by: " + str(userIndex[flask.request.sid])
@@ -95,13 +84,23 @@ def index():
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     return flask.render_template("index.html")
 
-
+@socketio.on('new google user')
+def on_new_google_login(data):
+    sid = flask.request.sid
+    auth_user_list.append(sid)
+    userIndex[sid] = data['email']
+    
+    print('Someone logged in with data: ' + str(data) + 
+            "\t user list:\n" + str(userIndex))
+    
+    socketio.emit('updateUsers', {
+        'user_count': len(auth_user_list)
+    })
+    
+    
 @socketio.on('connect')
 def on_connect():
     sid = flask.request.sid
-    user_list.append(sid)
-    userId = randomName()
-    userIndex[sid] = userId
     print('Someone connected with sid: ' + sid + 
             "\t user list:\n" + str(userIndex))
     socketio.emit('connected', {
@@ -109,7 +108,7 @@ def on_connect():
     })
     
     socketio.emit('updateUsers', {
-        'user_count': len(user_list)
+        'user_count': len(auth_user_list)
     })
     
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
@@ -117,11 +116,11 @@ def on_connect():
 
 @socketio.on('disconnect')
 def on_disconnect():
-    sid = flask.request.sid
-    user_list.remove(sid)
     print ('Someone disconnected!')
+    sid = flask.request.sid
+    auth_user_list.remove(sid)
     socketio.emit('updateUsers', {
-        'user_count': len(user_list)
+        'user_count': len(auth_user_list)
     })
     
 if __name__ == '__main__': 

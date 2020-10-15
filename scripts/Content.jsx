@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { InputField } from './InputField';
 import { Socket } from './Socket';
+import { GoogleButton } from './GoogleButton';
 
 export function Content() {
     const [messages, setMessages] = React.useState([]);
@@ -39,6 +40,7 @@ export function Content() {
                     
                 </div>
             <InputField />
+            <GoogleButton />
         </div>
     );
 }
