@@ -1,0 +1,35 @@
+import { Socket } from './Socket';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import GoogleLogin from 'react-google-login';
+
+const responseGoogle = (response) => {
+  console.log(response);
+}
+ 
+
+function handleSubmit(response) {
+    // TODO replace with name from oauth
+    console.log(response.nt)
+    let name = response.nt.Ad;
+    let email = response.nt.Wt;
+    let profilePicURL = response.nt.JJ;
+    Socket.emit('new google user', {
+        'name': name,
+        'email': email,
+        'picture': profilePicURL
+    });
+    
+    console.log('Sent the name ' + name + ' to server!');
+}
+
+export function GoogleButton() {
+    return <GoogleLogin
+        clientId="174343683808-a8qlre1saob9enalirddvbkmi4m8al43.apps.googleusercontent.com"
+        buttonText="Login to join the chat!"
+        onSuccess={handleSubmit}
+        onFailure={responseGoogle}
+        cookiePolicy={'single_host_origin'}
+      />;
+
+}
