@@ -63,7 +63,7 @@ def emit_all_messages(channel):
 
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by: " + str(userIndex[flask.request.sid])
+    sign = "Sent by: " + str(userIndex[flask.request.sid]) # Right now, only users in the list (i.e. logged in, will send messages)
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
