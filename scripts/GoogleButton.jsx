@@ -10,7 +10,7 @@ const responseGoogle = (response) => {
  
 
 function handleSubmit(response) {
-    // TODO replace with name from oauth
+    console.log("clicked the button!")
     console.log(response.nt)
     let name = response.nt.Ad;
     let email = response.nt.Wt;
