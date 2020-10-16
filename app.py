@@ -94,10 +94,10 @@ def on_new_google_login(data):
     userIndex[sid] = data['email']
     
     print('Someone logged in with data: ' + str(data) + 
-            "\t user list:\n" + str(userIndex))
+            "\tauth user list:\n" + str(userIndex))
     
     socketio.emit('updateUsers', {
-        'user_count': len(auth_user_list)
+        'user_count': len(userIndex)
     })
     
     try:
@@ -115,7 +115,7 @@ def on_connect():
     })
     
     socketio.emit('updateUsers', {
-        'user_count': len(auth_user_list)
+        'user_count': len(userIndex)
     })
     
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
@@ -131,7 +131,7 @@ def on_disconnect():
     except:
         pass
     socketio.emit('updateUsers', {
-        'user_count': len(auth_user_list)
+        'user_count': len(userIndex)
     })
     
 if __name__ == '__main__': 
