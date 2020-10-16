@@ -99,6 +99,9 @@ html {
   height: 45px;
   max-width: 80%;
 }
+.pictures {
+  height: 45px;
+}
 #anchor {
   overflow-anchor: auto;
   height: 1px;

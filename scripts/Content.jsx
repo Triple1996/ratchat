@@ -20,7 +20,7 @@ export function Content() {
         })
         
     });
-
+    console.log("picture: " + messages);
     return (
         <div id="interface">
             <h1 id="title">Ratchat</h1>
@@ -37,12 +37,10 @@ export function Content() {
                             <ul className="signatures" key={index}>{sign[1]}</ul>)}
                         <ul id="anchor"></ul>
                     </div>
-                    
+
                     <div id='pics-wrapper'>
-                        {messages.map((sign, index) =>
-                            <ul className="profile-pics" key={index}>
-                                <img src="https://s-i.huffpost.com/gen/2524054/images/o-YOSEMITE-facebook.jpg" height = "45" ></img>
-                            </ul>)}
+                        {messages.map((pics, index) =>
+                            <ul className="pictures" key={index}><img src = "{{pics[2]}}" /></ul> )}
                     </div>
                     
                 </div>
