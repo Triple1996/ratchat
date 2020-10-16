@@ -97,11 +97,11 @@ html {
   text-align: right;
 }
 .pictures {
-  height: 45px;
-  border-right: 3px solid black;
+  height: 39px;
+  width: 39px;
+  border: 1px solid black;
   border-radius: 5px;
-  padding-right: 10px;
-  margin-right: 10px;
+  padding: 2px;
 }
 #anchor {
   overflow-anchor: auto;

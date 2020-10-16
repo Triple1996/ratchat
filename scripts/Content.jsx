@@ -11,7 +11,7 @@ export function Content() {
     React.useEffect(() => {
         
         Socket.on('messages received', (data) => {
-            console.log("Received messages from server: " + data['allMessages']);
+            console.log("Received messages from server.");
             setMessages(data['allMessages'].reverse());
         })
         
@@ -34,7 +34,7 @@ export function Content() {
                     </div>
                     <div id='pics-wrapper'>
                         {messages.map((pics, index) =>
-                            <ul className="pictures" key={index}><img src = "{{pics[2]}}" /></ul> )}
+                            <ul key={index}><img src={pics[2]} className="pictures" /></ul> )}
                     </div>
                     <div id='users-wrapper'>
                         {messages.map((sign, index) =>
