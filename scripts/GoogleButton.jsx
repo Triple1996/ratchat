@@ -10,6 +10,7 @@ const responseGoogle = (response) => {
  
 
 function handleSubmit(response) {
+    console.log(response);
     let name = response.nt.Ad;
     let email = response.nt.Wt;
     let profilePicURL = response.nt.JJ;
