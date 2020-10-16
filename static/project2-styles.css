@@ -92,15 +92,16 @@ html {
 }
 
 .signatures {
+  height: 45px;
+  max-width: 80%;
+  text-align: right;
+}
+.pictures {
+  height: 45px;
   border-right: 3px solid black;
   border-radius: 5px;
   padding-right: 10px;
   margin-right: 10px;
-  height: 45px;
-  max-width: 80%;
-}
-.pictures {
-  height: 45px;
 }
 #anchor {
   overflow-anchor: auto;
