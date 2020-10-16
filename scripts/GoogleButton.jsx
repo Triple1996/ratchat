@@ -10,18 +10,16 @@ const responseGoogle = (response) => {
  
 
 function handleSubmit(response) {
-    console.log("clicked the button!")
-    console.log(response.nt)
     let name = response.nt.Ad;
     let email = response.nt.Wt;
     let profilePicURL = response.nt.JJ;
+
     Socket.emit('new google user', {
         'name': name,
         'email': email,
         'picture': profilePicURL
     });
-    
-    console.log('Sent the name ' + name + ' to server!');
+    console.log('logged in with email ' + email + '!');
     document.getElementById("chat-input").disabled = false;
     document.getElementById("submit").disabled = false;
 }
