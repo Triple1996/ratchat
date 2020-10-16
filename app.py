@@ -5,7 +5,7 @@ import os
 import flask
 import flask_sqlalchemy
 import flask_socketio
-import chat_tables
+import tables
 import requests
 import json 
 import random
@@ -48,8 +48,8 @@ def emit_all_messages(channel):
     
     for db_message,db_user in \
             db.session.query(
-                chat_tables.Chat_log.content, chat_tables.Chat_log.user) \
-            .order_by(chat_tables.Chat_log.id.desc()).limit(50).all():
+                tables.Chat_log.content, tables.Chat_log.user) \
+            .order_by(tables.Chat_log.id.desc()).limit(50).all():
         all_messages.append(db_message)
         all_signs_log.append(db_user)
     
@@ -63,20 +63,20 @@ def emit_all_messages(channel):
 
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by: " + str(userIndex[flask.request.sid]) # 
+    sign = "Sent by: " + str(userIndex[flask.request.sid]) # this should grab from DB 
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
     # commit to DB and update everyone's chat
-    db.session.add(chat_tables.Chat_log(data["message"], sign));
+    db.session.add(tables.Chat_log(data["message"], sign));
     db.session.commit();
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
     # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
         botRetStr = bot.handle_command(messageContent[2:])
-        db.session.add(chat_tables.Chat_log(botRetStr,'@VERMINBOT'));
-        db.session.commit();
+        db.session.add(tables.Chat_log(botRetStr,'@VERMINBOT'))
+        db.session.commit()
         emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
         
 @app.route('/')
@@ -96,6 +96,10 @@ def on_new_google_login(data):
     socketio.emit('updateUsers', {
         'user_count': len(auth_user_list)
     })
+    
+    # input email-name pair into DB
+    db.session.add(chat_tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
+    db.session.commit()
     
 @socketio.on('connect')
 def on_connect():
