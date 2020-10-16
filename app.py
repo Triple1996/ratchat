@@ -40,7 +40,6 @@ auth_user_list = []
 userIndex = {}
 bot = Verminbot()
 
-
 def emit_all_messages(channel):
 
     all_messages = []
@@ -123,6 +122,7 @@ def on_connect():
 def on_disconnect():
     print ('Someone disconnected!')
     sid = flask.request.sid
+    userIndex.pop(sid)
     try:
         auth_user_list.remove(sid)
     except:
