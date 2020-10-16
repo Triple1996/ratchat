@@ -98,10 +98,11 @@ def on_new_google_login(data):
         'user_count': len(auth_user_list)
     })
     
-    # TODO Check that email is not already in the DB
-    db.session.add(tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
-    db.session.commit()
-    
+    try:
+        db.session.add(tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
+        db.session.commit()
+    except: # email already exists in the DB
+        pass
 @socketio.on('connect')
 def on_connect():
     sid = flask.request.sid
