@@ -29,11 +29,12 @@ function handleSubmit(event) {
 }
 
 export function InputField() {
+
     return (
         <div id="input-ui">
             <form onSubmit={handleSubmit}>
-                <input id="chat-input" placeholder="Enter message"></input>
-                <button id="submit">Send!</button>
+                <input id="chat-input" placeholder="Enter message" disabled></input>
+                <button id="submit" disabled>Send!</button>
             </form>
         </div>
     );

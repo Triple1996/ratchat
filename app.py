@@ -63,7 +63,7 @@ def emit_all_messages(channel):
 
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by: " + str(userIndex[flask.request.sid]) # Right now, only users in the list (i.e. logged in, will send messages)
+    sign = "Sent by: " + str(userIndex[flask.request.sid]) # 
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
@@ -97,7 +97,6 @@ def on_new_google_login(data):
         'user_count': len(auth_user_list)
     })
     
-    
 @socketio.on('connect')
 def on_connect():
     sid = flask.request.sid
@@ -118,7 +117,10 @@ def on_connect():
 def on_disconnect():
     print ('Someone disconnected!')
     sid = flask.request.sid
-    auth_user_list.remove(sid)
+    try:
+        auth_user_list.remove(sid)
+    except:
+        pass
     socketio.emit('updateUsers', {
         'user_count': len(auth_user_list)
     })

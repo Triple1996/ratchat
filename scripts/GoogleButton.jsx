@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 
+
 const responseGoogle = (response) => {
   console.log(response);
 }
@@ -21,6 +22,8 @@ function handleSubmit(response) {
     });
     
     console.log('Sent the name ' + name + ' to server!');
+    document.getElementById("chat-input").disabled = false;
+    document.getElementById("submit").disabled = false;
 }
 
 export function GoogleButton() {
