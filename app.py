@@ -63,7 +63,8 @@ def emit_all_messages(channel):
 
 @socketio.on('new message input')
 def on_new_message(data):
-    sign = "Sent by: " + str(userIndex[flask.request.sid]) # this should grab from DB 
+    name = db.session.query(tables.AuthUser.name).filter(tables.AuthUser.email == userIndex[flask.request.sid]).first()
+    sign = "Sent by: " + name[0]
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
@@ -97,8 +98,8 @@ def on_new_google_login(data):
         'user_count': len(auth_user_list)
     })
     
-    # input email-name pair into DB
-    db.session.add(chat_tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
+    # TODO Check that email is not already in the DB
+    db.session.add(tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
     db.session.commit()
     
 @socketio.on('connect')
