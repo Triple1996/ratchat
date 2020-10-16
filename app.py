@@ -39,22 +39,25 @@ db.session.commit()
 auth_user_list = []
 userIndex = {}
 bot = Verminbot()
+botPic = 'https://cdn-images-1.medium.com/max/800/1*ktXRqt9UHhJf3miHG3zpvQ.png'
+botSign = '@VERMINBOT'
 
 def emit_all_messages(channel):
 
     all_messages = []
     all_signs_log = []
+    all_pics = []
     
-    for db_message,db_user in \
+    for db_message,db_user,db_pic in \
             db.session.query(
-                tables.Chat_log.content, tables.Chat_log.user) \
+                tables.Chat_log.content, tables.Chat_log.user, tables.Chat_log.pictureURL) \
             .order_by(tables.Chat_log.id.desc()).limit(50).all():
         all_messages.append(db_message)
         all_signs_log.append(db_user)
-    
+        all_pics.append(db_pic)
     all_chat = []
     for i in range(0,len(all_messages)):
-        all_chat.append([all_messages[i], all_signs_log[i]])
+        all_chat.append([all_messages[i], all_signs_log[i], all_pics[i]])
     
     socketio.emit(channel, {
         'allMessages': all_chat
@@ -62,20 +65,20 @@ def emit_all_messages(channel):
 
 @socketio.on('new message input')
 def on_new_message(data):
-    name = db.session.query(tables.AuthUser.name).filter(tables.AuthUser.email == userIndex[flask.request.sid]).first()
-    sign = "Sent by: " + name[0]
+    name, pictureURL = db.session.query(tables.AuthUser.name, tables.AuthUser.pictureURL).filter(tables.AuthUser.email == userIndex[flask.request.sid]).first()
+    sign = "Sent by: " + name
     print("Got an event for new message input with data:", data, sign)
     messageContent = data["message"].strip()
     
     # commit to DB and update everyone's chat
-    db.session.add(tables.Chat_log(data["message"], sign));
+    db.session.add(tables.Chat_log(data["message"], sign, pictureURL));
     db.session.commit();
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
     # if bot command (first two chars are !!)
     if (messageContent[0] == '!' and messageContent[1] == '!'):
         botRetStr = bot.handle_command(messageContent[2:])
-        db.session.add(tables.Chat_log(botRetStr,'@VERMINBOT'))
+        db.session.add(tables.Chat_log(botRetStr, botSign, botPic))
         db.session.commit()
         emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
         
@@ -98,7 +101,7 @@ def on_new_google_login(data):
     })
     
     try:
-        db.session.add(tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email']))
+        db.session.add(tables.AuthUser(data['name'], tables.AuthUserType.GOOGLE, data['email'], data['picture']))
         db.session.commit()
     except: # email already exists in the DB
         pass
