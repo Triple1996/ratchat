@@ -20,7 +20,7 @@ export function Content() {
         })
         
     });
-    console.log("picture: " + messages);
+
     return (
         <div id="interface">
             <h1 id="title">Ratchat</h1>
