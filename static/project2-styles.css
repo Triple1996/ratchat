@@ -45,7 +45,7 @@ html {
 }
 #messages-wrapper {
   float: left;
-  width: 60%;
+  width: 45%;
 }
 #users-wrapper {
   float: right;
@@ -79,6 +79,10 @@ html {
   background-color: #ffece6;
 }
 
+#pics-wrapper {
+  float: right;
+  width: 15%;
+}
 .chat-items {
   border-left: 3px solid black;
   border-radius: 5px;

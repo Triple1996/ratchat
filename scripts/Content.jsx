@@ -38,6 +38,13 @@ export function Content() {
                         <ul id="anchor"></ul>
                     </div>
                     
+                    <div id='pics-wrapper'>
+                        {messages.map((sign, index) =>
+                            <ul className="profile-pics" key={index}>
+                                <img src="https://s-i.huffpost.com/gen/2524054/images/o-YOSEMITE-facebook.jpg" height = "45" ></img>
+                            </ul>)}
+                    </div>
+                    
                 </div>
             <InputField />
             <GoogleButton />
