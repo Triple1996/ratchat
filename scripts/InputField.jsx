@@ -29,7 +29,15 @@ function handleSubmit(event) {
 }
 
 export function InputField() {
+    React.useEffect(() => {
+        
+        Socket.on('connected', (data) => {
+            document.getElementById("chat-input").disabled = true;
+            document.getElementById("submit").disabled = true;
+        })
 
+    });
+    
     return (
         <div id="input-ui">
             <form onSubmit={handleSubmit}>
