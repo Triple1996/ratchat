@@ -9,18 +9,24 @@ export function Content() {
     const [userCount, setUserCount] = React.useState(0);
     
     React.useEffect(() => {
-        
         Socket.on('messages received', (data) => {
             console.log("Received messages from server.");
-            setMessages(data['allMessages'].reverse());
+            setMessages(data['allMessages']);
         })
         
         Socket.on('updateUsers', (data) => {
             setUserCount(data['user_count'])
         })
-        
+        renderHTML()
     });
-
+    
+    function renderHTML() {
+        console.log("renderHTML(), new messages: " + messages);
+        for (var i = 0; i < messages.length; i++) {
+                document.getElementsByClassName("chat-items")[i].innerHTML = messages[messages.length-1-i][0];
+            }
+    }
+    
     return (
         <div id="interface">
             <h1 id="title">Ratchat</h1>
@@ -30,7 +36,7 @@ export function Content() {
                 <div id='chat-container'>
                     <div id='messages-wrapper'>
                         {messages.map((message, index) =>
-                            <ul className="chat-items" key={index}>{message[0]}</ul> )}
+                            <ul className="chat-items" key={index}></ul> )}
                     </div>
                     <div id='pics-wrapper'>
                         {messages.map((pics, index) =>
