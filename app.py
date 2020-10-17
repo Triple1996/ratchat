@@ -10,6 +10,7 @@ import requests
 import json 
 import random
 from verminbot import Verminbot
+from HTMLStrings import HTMLStrings
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 
@@ -38,6 +39,7 @@ db.session.commit()
 # list of current users 
 userIndex = {}
 bot = Verminbot()
+HTMLWriter = HTMLStrings()
 botPic = 'https://cdn-images-1.medium.com/max/800/1*ktXRqt9UHhJf3miHG3zpvQ.png'
 botSign = '@VERMINBOT'
 
@@ -55,6 +57,8 @@ def emit_all_messages(channel):
         all_signs_log.append(db_user)
         all_pics.append(db_pic)
     all_chat = []
+    HTMLWriter.formatHTML(all_messages)
+    print(all_messages)
     for i in range(0,len(all_messages)):
         all_chat.append([all_messages[i], all_signs_log[i], all_pics[i]])
     
