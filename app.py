@@ -36,7 +36,6 @@ db.create_all()
 db.session.commit()
 
 # list of current users 
-auth_user_list = []
 userIndex = {}
 bot = Verminbot()
 botPic = 'https://cdn-images-1.medium.com/max/800/1*ktXRqt9UHhJf3miHG3zpvQ.png'
@@ -90,11 +89,13 @@ def index():
 @socketio.on('new google user')
 def on_new_google_login(data):
     sid = flask.request.sid
-    auth_user_list.append(sid)
     userIndex[sid] = data['email']
     
     print('Someone logged in with data: ' + str(data) + 
-            "\tauth user list:\n" + str(userIndex))
+            "\nauth user list:")
+    
+    for user in userIndex:    
+        print(user + " : " + userIndex[user])
     
     socketio.emit('updateUsers', {
         'user_count': len(userIndex)
@@ -109,7 +110,10 @@ def on_new_google_login(data):
 def on_connect():
     sid = flask.request.sid
     print('Someone connected with sid: ' + sid + 
-            "\t user list:\n" + str(userIndex))
+            "\nauth user list:")
+    for user in userIndex:    
+        print(user + " : " + userIndex[user])
+    
     socketio.emit('connected', {
         'test': 'Connected'
     })
@@ -123,13 +127,12 @@ def on_connect():
 
 @socketio.on('disconnect')
 def on_disconnect():
-    print ('Someone disconnected!')
     sid = flask.request.sid
     userIndex.pop(sid)
-    try:
-        auth_user_list.remove(sid)
-    except:
-        pass
+    print ('Someone disconnected with sid: ' + sid + 
+            "\nauth user list:")
+    for user in userIndex:    
+        print(user + " : " + userIndex[user])
     socketio.emit('updateUsers', {
         'user_count': len(userIndex)
     })
