@@ -11,19 +11,27 @@ export function Content() {
     React.useEffect(() => {
         Socket.on('messages received', (data) => {
             console.log("Received messages from server.");
-            setMessages(data['allMessages']);
+            setMessages(data['allMessages'].reverse());
         })
         
         Socket.on('updateUsers', (data) => {
             setUserCount(data['user_count'])
         })
+        
+        console.log(document.getElementsByClassName("chat-items"))
+        console.log(messages)
         renderHTML()
     });
     
+    Socket.on('connect', (data) => {
+            renderHTML()
+    })
+    
     function renderHTML() {
+        var chats = messages.reverse();
         console.log("renderHTML(), new messages: " + messages);
         for (var i = 0; i < messages.length; i++) {
-                document.getElementsByClassName("chat-items")[i].innerHTML = messages[messages.length-1-i][0];
+                document.getElementsByClassName("chat-items")[i].innerHTML = chats[i][0];
             }
     }
     
