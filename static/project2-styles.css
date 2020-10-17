@@ -28,29 +28,6 @@ html {
   padding: 1px;
   background-color: #ffece6;
 }
-
-#chat-container {
-  height: 50%;
-  width: 50%;
-  margin: auto;
-  border-width: 3px;
-  border-style: ridge;
-  border-color: rgb(0, 0, 0);
-  border-radius: 10px;
-  text-align: left;
-  overflow: scroll;
-  background-color: #ffece6;
-  scrollbar-width: none;  /* hide scrollbars for FireFox */
-  -ms-overflow-style: none;  /* IE and Edge */
-}
-#messages-wrapper {
-  float: left;
-  width: 45%;
-}
-#users-wrapper {
-  float: right;
-  width: 40%;
-}
 #input-ui {
   padding-top: 10px;
   width: 50%;
@@ -77,6 +54,29 @@ html {
   border-radius: 5px;
   border-color: black;
   background-color: #ffece6;
+}
+
+#chat-container {
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  border-width: 3px;
+  border-style: ridge;
+  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  text-align: left;
+  overflow: scroll;
+  background-color: #ffece6;
+  scrollbar-width: none;  /* hide scrollbars for FireFox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+#messages-wrapper {
+  float: left;
+  width: 45%;
+}
+#users-wrapper {
+  float: right;
+  width: 40%;
 }
 
 #pics-wrapper {
