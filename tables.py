@@ -4,7 +4,7 @@ from enum import Enum
 
 class Chat_log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(120))
+    content = db.Column(db.String(240))
     user = db.Column(db.String(120))
     pictureURL = db.Column(db.String(240))
     
