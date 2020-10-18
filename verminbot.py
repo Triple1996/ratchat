@@ -56,7 +56,10 @@ class Verminbot:
                                     'translate/mandalorian.json?text="' +
                                     toTranslate + '"').json()
         try:
-            return reqResponse['contents']['translated']
+            if len(reqResponse['contents']['translated']) < 236:
+                return reqResponse['contents']['translated']
+            else:
+                return "Translation exceeded message capacity :("
         except KeyError:
             return "Too many translations, try again later"
         except:
