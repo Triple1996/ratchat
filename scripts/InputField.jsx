@@ -10,8 +10,8 @@ function handleSubmit(event) {
         alert("Text field cannot be empty");
         newMessageLoc.value = ''
     }
-    else if (newMessage.length > 120) {
-        alert("Message only can be a maximum of 120 characters.")
+    else if (newMessage.length > 240) {
+        alert("Message cannot exceed 240 characters.")
     }
     else if (newMessage.trim().substr(0,2) == "~/"){
         alert("Only the bot may start lines with '~/'");
