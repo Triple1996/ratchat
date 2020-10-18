@@ -15,9 +15,7 @@ class HTMLStrings:
             
     def formatHTML(self, messages):
         imageExtensions = ['.jpg', '.png', '.gif']
-        urlExtensions = ['.com', '.org', '.net', '.gov', '.edu']
-        
-        
+  
         i = 0
         for message in messages:
             if (message[-4:].lower() in imageExtensions):
