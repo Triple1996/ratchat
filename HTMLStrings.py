@@ -3,22 +3,26 @@ from rfc3987 import parse
 
 class HTMLStrings:
     
+    imageExtensions = ['.jpg', '.png', '.gif']
+    urlExtensions = ['.com','.org','.gov','.edu','.net','.gg','.io']
+  
     def __init__(self):
         self.HTMLWriter = "HTMLWriter"
     
     def isHTML(self, message):
-        try:
-            parse(message, rule='URI')
-            return True
-        except ValueError:
-            return False
-            
+        for suffix in self.urlExtensions:
+            if suffix in message:
+                try:
+                    parse(message, rule='URI')
+                    return True
+                except ValueError:
+                    pass
+        return False
     def formatHTML(self, messages):
-        imageExtensions = ['.jpg', '.png', '.gif']
-  
+
         i = 0
         for message in messages:
-            if (message[-4:].lower() in imageExtensions):
+            if (message[-4:].lower() in self.imageExtensions):
                 messages[i] = "<img src={} className='pictures' height=45px;/>".format(messages[i])
             elif (self.isHTML(message)):
                 messages[i] = "<a href={}>{}</a>".format(messages[i], messages[i])
