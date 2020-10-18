@@ -17,34 +17,18 @@ export function Content() {
         Socket.on('updateUsers', (data) => {
             setUserCount(data['user_count'])
         })
-        
-        console.log(document.getElementsByClassName("chat-items"))
-        console.log(messages)
-        renderHTML()
     });
-    
-    Socket.on('connect', (data) => {
-            renderHTML()
-    })
-    
-    function renderHTML() {
-        var chats = messages.reverse();
-        console.log("renderHTML(), new messages: " + messages);
-        for (var i = 0; i < messages.length; i++) {
-                document.getElementsByClassName("chat-items")[i].innerHTML = chats[i][0];
-            }
-    }
-    
+
     return (
         <div id="interface">
             <h1 id="title">Ratchat</h1>
                 <div id="user-count">
-                    <span>User count: {userCount}</span>
+                    <span>Logged in user count: {userCount}</span>
                 </div>
                 <div id='chat-container'>
                     <div id='messages-wrapper'>
                         {messages.map((message, index) =>
-                            <ul className="chat-items" key={index}></ul> )}
+                            <ul className="chat-items" key={index} dangerouslySetInnerHTML={{__html: `${message[0]}` }}></ul> )}
                     </div>
                     <div id='pics-wrapper'>
                         {messages.map((pics, index) =>
