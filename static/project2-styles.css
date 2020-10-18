@@ -72,11 +72,11 @@ html {
 }
 #messages-wrapper {
   float: left;
-  width: 45%;
+  width: 60%;
 }
 #users-wrapper {
   float: right;
-  width: 40%;
+  width: 25%;
 }
 
 #pics-wrapper {
@@ -87,18 +87,26 @@ html {
   border-left: 3px solid black;
   border-radius: 5px;
   margin-left: 15px;
-  height: 45px;
-  max-width: 60%;
+  height: 75px;
+  max-width: 100%;
 }
 
 .signatures {
-  height: 45px;
+  position: relative;
+  top: 15px;
+  height: 75px;
   max-width: 80%;
   text-align: right;
 }
+.pic-items {
+  height: 75px;
+}
 .pictures {
-  height: 39px;
-  width: 39px;
+  position: relative;
+  top: 10px;
+  right: 15px;
+  height: 45px;
+  width: 45px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 2px;
