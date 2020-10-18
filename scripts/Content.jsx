@@ -32,7 +32,7 @@ export function Content() {
                     </div>
                     <div id='pics-wrapper'>
                         {messages.map((pics, index) =>
-                            <ul key={index}><img src={pics[2]} className="pictures" /></ul> )}
+                            <ul className ='pic-items'key={index}><img src={pics[2]} className="pictures" /></ul> )}
                     </div>
                     <div id='users-wrapper'>
                         {messages.map((sign, index) =>
