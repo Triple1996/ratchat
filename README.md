@@ -7,9 +7,9 @@
     b) `pip install flask-socketio`    
     c) `pip install eventlet`
     d) `pip install rfc3987`
-    d) `npm install -g webpack`    
-    e) `npm install --save-dev webpack`    
-    f) `npm install socket.io-client --save`    
+    e) `npm install -g webpack`    
+    f) `npm install --save-dev webpack`    
+    g) `npm install socket.io-client --save`    
 If you see any error messages, make sure you use `sudo pip` or `sudo npm`. If it says "pip cannot be found", run `which pip` and use `sudo [path to pip from which pip] install`  
   
 # Getting PSQL to work with Python  
