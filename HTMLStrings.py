@@ -23,7 +23,7 @@ class HTMLStrings:
         i = 0
         for message in messages:
             if (message[-4:].lower() in self.imageExtensions):
-                messages[i] = "<img src={} className='pictures' height=45px;/>".format(messages[i])
+                messages[i] = "<img src={} className='chat-pictures' height= 90%; />".format(messages[i])
             elif (self.isHTML(message)):
                 messages[i] = "<a href={}>{}</a>".format(messages[i], messages[i])
             else:
