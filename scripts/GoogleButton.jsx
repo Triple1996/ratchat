@@ -11,9 +11,9 @@ const responseGoogle = (response) => {
 
 function handleSubmit(response) {
     console.log(response);
-    let name = response.nt.Ad;
-    let email = response.nt.Wt;
-    let profilePicURL = response.nt.JJ;
+    let name = response.profileObj.name;
+    let email = response.profileObj.email;
+    let profilePicURL = response.profileObj.imageUrl;
 
     Socket.emit('new google user', {
         'name': name,
