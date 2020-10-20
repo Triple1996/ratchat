@@ -1,0 +1,109 @@
+.Content {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+html {
+  background-image: linear-gradient(to bottom, #992600, #330d00);
+  height: 100%;
+  background-size: cover;
+}
+
+#title{
+  font-size: 50px;
+}
+
+#interface {
+  text-align: center;
+}
+#user-count {
+  position: relative;
+  bottom: 10px;
+  border-width: 3px;
+  border-style: ridge;
+  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  margin: auto;
+  width: 120px;
+  padding: 1px;
+  background-color: #ffece6;
+}
+#input-ui {
+  padding-top: 10px;
+  width: 50%;
+  margin: auto;
+}
+
+#submit {
+  font-size: 15px;
+  float: right;
+  height: 25px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: ridge;
+  border-color: black;
+  background-color: rgb(24, 211, 71);
+  margin-right: 20px;
+}
+
+#chat-input {
+  height: 25px;
+  width: 80%;
+  border-width: 2px;
+  border-style: ridge;
+  border-radius: 5px;
+  border-color: black;
+  background-color: #ffece6;
+}
+
+#chat-container {
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  border-width: 3px;
+  border-style: ridge;
+  border-color: rgb(0, 0, 0);
+  border-radius: 10px;
+  text-align: left;
+  overflow: scroll;
+  background-color: #ffece6;
+  scrollbar-width: none;  /* hide scrollbars for FireFox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+#messages-wrapper {
+  width: 90%;
+  height: 90px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.chat-items {
+  float: left;
+  text-align: left;
+  height: 100%;
+  width: 45%;
+}
+
+.signatures {
+  float: right;
+  height: 100%;
+  width: 25%;
+  text-align: center;
+}
+.pic-items {
+  float: right;
+  width: 10%;
+  height: 100%;
+  padding-left:  5%;
+}
+.pictures {
+  position: relative;
+  right: 10px;
+  top: 15%;
+  height: 45px;
+  width: 45px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+}
