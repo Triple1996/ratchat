@@ -41,7 +41,6 @@ db.session.commit()
 userIndex = {}
 bot = Verminbot()
 HTMLWriter = HTMLStrings()
-HTMLWriter = HTMLStrings()
 botPic = 'https://cdn-images-1.medium.com/max/800/1*ktXRqt9UHhJf3miHG3zpvQ.png'
 botSign = '@VERMINBOT'
 
