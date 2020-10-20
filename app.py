@@ -111,6 +111,7 @@ def on_new_google_login(data):
         db.session.commit()
     except: # email already exists in the DB
         pass
+    
 @socketio.on('connect')
 def on_connect():
     sid = flask.request.sid
