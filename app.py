@@ -8,7 +8,7 @@ import flask
 import flask_sqlalchemy
 import flask_socketio
 from verminbot import Verminbot
-from HTMLStrings import HTMLStrings
+from html_strings import HTMLStrings
 
 MESSAGES_RECEIVED_CHANNEL = "messages received"
 
@@ -62,7 +62,7 @@ def emit_all_messages(channel):
         all_signs_log.append(db_user)
         all_pics.append(db_pic)
     all_chat = []
-    HTML_WRITER.formatHTML(all_messages)
+    HTML_WRITER.format_html(all_messages)
     for i in range(0, len(all_messages)):
         all_chat.append([all_messages[i], all_signs_log[i], all_pics[i]])
 
