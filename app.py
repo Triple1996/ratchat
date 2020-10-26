@@ -1,14 +1,16 @@
-"""
- this is the doctring
-"""
+# pylint: disable=missing-docstring
+# pylint: disable=wrong-import-order
+# pylint: disable=no-member
+# pylint: disable=wrong-import-position
 from os.path import join, dirname
-import dotenv
 import os
+import dotenv
 import flask
 import flask_sqlalchemy
 import flask_socketio
 from verminbot import Verminbot
 from html_strings import HTMLStrings
+
 
 MESSAGES_RECEIVED_CHANNEL = "messages received"
 
@@ -31,10 +33,11 @@ DB = flask_sqlalchemy.SQLAlchemy(APP)
 DB.init_app(APP)
 DB.app = APP
 
+import tables
+
 DB.create_all()
 DB.session.commit()
 
-import tables
 
 # list of current users
 USER_INDEX = {}
@@ -49,21 +52,24 @@ def emit_all_messages(channel):
     all_messages = []
     all_signs_log = []
     all_pics = []
+    num_messages = 0
 
     for db_message, db_user, db_pic in (
-            DB.session.query(
-                tables.Chat_log.content, tables.Chat_log.user, tables.Chat_log.pictureURL
-            )
-            .order_by(tables.Chat_log.id.desc())
-            .limit(50)
-            .all()
-        ):
+        DB.session.query(
+            tables.ChatLog.content, tables.ChatLog.user, tables.ChatLog.picture_url
+        )
+        .order_by(tables.ChatLog.id.desc())
+        .limit(50)
+        .all()
+    ):
         all_messages.append(db_message)
         all_signs_log.append(db_user)
         all_pics.append(db_pic)
+        num_messages += 1
     all_chat = []
     HTML_WRITER.format_html(all_messages)
-    for i in range(0, len(all_messages)):
+
+    for i in range(0, num_messages):
         all_chat.append([all_messages[i], all_signs_log[i], all_pics[i]])
 
     SOCKETIO.emit(channel, {"allMessages": all_chat})
@@ -72,7 +78,7 @@ def emit_all_messages(channel):
 @SOCKETIO.on("new message input")
 def on_new_message(data):
     name, picture_url = (
-        DB.session.query(tables.AuthUser.name, tables.AuthUser.pictureURL)
+        DB.session.query(tables.AuthUser.name, tables.AuthUser.picture_url)
         .filter(tables.AuthUser.email == USER_INDEX[flask.request.sid])
         .first()
     )
@@ -81,14 +87,14 @@ def on_new_message(data):
     message_content = data["message"].strip()
 
     # commit to DB and update everyone's chat
-    DB.session.add(tables.Chat_log(data["message"], sign, picture_url))
+    DB.session.add(tables.ChatLog(data["message"], sign, picture_url))
     DB.session.commit()
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
     # if bot command (first two chars are !!)
     if message_content[0] == "!" and message_content[1] == "!":
         bot_ret_str = BOT.handle_command(message_content[2:])
-        DB.session.add(tables.Chat_log(bot_ret_str, BOT_PIC, BOT_SIGN))
+        DB.session.add(tables.ChatLog(bot_ret_str, BOT_SIGN, BOT_PIC))
         DB.session.commit()
         emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
@@ -101,6 +107,7 @@ def index():
 
 @SOCKETIO.on("new google user")
 def on_new_google_login(data):
+    # pylint: disable=no-member
     sid = flask.request.sid
     USER_INDEX[sid] = data["email"]
 
@@ -118,7 +125,7 @@ def on_new_google_login(data):
             )
         )
         DB.session.commit()
-    except:  # email already exists in the DB
+    except:  # email already exists in the DB (SQL.IntegrityError)
         pass
 
 
