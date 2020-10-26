@@ -7,18 +7,18 @@ function handleSubmit(event) {
 
   // message is empty
   if (/^\s*$/.test(newMessage)) {
-    alert('Text field cannot be empty');
+    document.getElementById('response-field').innerHTML = 'Text field cannot be empty';
     newMessageLoc.value = '';
   } else if (newMessage.length > 200) {
-    alert('Message cannot exceed 200 characters.');
-  } else if (newMessage.trim().substr(0, 2) == '~/') {
-    alert("Only the bot may start lines with '~/'");
+    document.getElementById('response-field').innerHTML = 'Message cannot exceed 200 characters.';
+  } else if (newMessage.trim().substr(0, 2) === '~/') {
+    document.getElementById('response-field').innerHTML = "Only the bot may start lines with '~/'";
     newMessageLoc.value = '';
   } else {
+    document.getElementById('response-field').innerHTML = '';
     Socket.emit('new message input', {
       message: newMessage,
     });
-    console.log(`Sent the message ${newMessage} to server!`);
     newMessageLoc.value = '';
   }
 
@@ -35,7 +35,7 @@ export function InputField() {
     <div id="input-ui">
       <form onSubmit={handleSubmit}>
         <input id="chat-input" placeholder="Enter message" disabled />
-        <button id="submit" disabled>Send!</button>
+        <button id="submit" type="button" disabled>Send!</button>
       </form>
     </div>
   );
