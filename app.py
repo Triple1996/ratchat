@@ -5,7 +5,6 @@ import os
 import flask
 import flask_sqlalchemy
 import flask_socketio
-import tables
 import requests
 import json 
 import random
@@ -36,6 +35,8 @@ db.app = app
 
 db.create_all()
 db.session.commit()
+
+import tables
 
 # list of current users 
 userIndex = {}
