@@ -10,9 +10,9 @@ function handleSubmit(response) {
   const { name } = response.profileObj;
   const { email } = response.profileObj;
   const profilePicURL = response.profileObj.imageUrl;
-  
-  document.getElementById('username').innerHTML = 'Logged in as: ' + name;
-  
+
+  document.getElementById('username').innerHTML = `Logged in as: ${name}`;
+
   Socket.emit('new google user', {
     name,
     email,
