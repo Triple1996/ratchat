@@ -25,17 +25,8 @@ class AppTestCase(unittest.TestCase):
                 KEY_EXPECTED: "~/ 7h3 quick br0wn f0x"
             },
             {
-                KEY_INPUT: "funtranslate hello there",
-                KEY_EXPECTED: '~/ "su cuy\'gar ogir"'
-            },
-            {
-                KEY_INPUT: "catfact",
-                KEY_EXPECTED: "~/ This is a catfact."
-            },
-            {
                 KEY_INPUT: "dasd",
-                KEY_EXPECTED: "~/ That command was unrecognized. \
-                    For a list of commands, type !!help"
+                KEY_EXPECTED: "~/ That command was unrecognized. For a list of commands, type !!help"
             },
         ]
         
