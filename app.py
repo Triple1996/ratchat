@@ -22,7 +22,7 @@ SOCKETIO.init_app(APP, cors_allowed_origins="*")
 try:
     DOTENV_PATH = join(dirname(__file__), "sql.env")
     dotenv.load_dotenv(DOTENV_PATH)
-except e:
+except AttributeError as error:
     print("Handled error: " + str(error))
 
 DATABASE_URI = os.environ["DATABASE_URL"]
