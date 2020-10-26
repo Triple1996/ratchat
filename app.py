@@ -6,6 +6,7 @@ import os
 import dotenv
 import flask
 import flask_sqlalchemy
+from sqlalchemy import exc
 import flask_socketio
 from verminbot import Verminbot
 from html_strings import HTMLStrings
@@ -124,7 +125,7 @@ def on_new_google_login(data):
             )
         )
         DB.session.commit()
-    except:  #pylint: disable=bare-except ## email already exists in the DB (SQL.IntegrityError)
+    except exc.IntegrityError: ## email already exists in the DB (SQL.IntegrityError)
         pass
 
 
