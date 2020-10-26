@@ -4,7 +4,7 @@
 }
 
 html {
-  background-image: linear-gradient(to bottom, #992600, #330d00);
+  /*background-image: linear-gradient(to bottom, #992600, #330d00);*/
   height: 100%;
   background-size: cover;
 }
