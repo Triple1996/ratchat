@@ -27,6 +27,7 @@ export function Content() {
           {userCount}
         </span>
       </div>
+      <p id="username"> </p>
       <div id="chat-container">
         {messages.map((message) => (
           <ul id="messages-wrapper">
