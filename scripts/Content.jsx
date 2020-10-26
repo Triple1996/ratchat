@@ -4,13 +4,12 @@ import { InputField } from './InputField';
 import { Socket } from './Socket';
 import { GoogleButton } from './GoogleButton';
 
-export function Content() {
+export default function Content() {
   const [messages, setMessages] = React.useState([]);
   const [userCount, setUserCount] = React.useState(0);
 
   React.useEffect(() => {
     Socket.on('messages received', (data) => {
-      console.log('Received messages from server.');
       setMessages(data.allMessages.reverse());
     });
 
@@ -29,10 +28,10 @@ export function Content() {
         </span>
       </div>
       <div id="chat-container">
-        {messages.map((message, index) => (
-          <ul id="messages-wrapper" key={index}>
+        {messages.map((message) => (
+          <ul id="messages-wrapper">
             <div className="chat-items" dangerouslySetInnerHTML={{ __html: `${message[0]}` }} />
-            <div className="pic-items"><img src={message[2]} className="pictures" /></div>
+            <div className="pic-items"><img src={message[2]} className="pictures" alt="failed to load" /></div>
             <div className="signatures">{message[1]}</div>
           </ul>
         ))}
