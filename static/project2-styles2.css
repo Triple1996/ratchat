@@ -107,3 +107,13 @@ html {
   border-radius: 5px;
   padding: 2px;
 }
+
+#response-field {
+  font-color: white;
+  position: relative;
+  width: 30%;
+  margin: auto;
+  padding:20px;
+  bottom: 5px;
+  border: 1px solid Black;
+}
