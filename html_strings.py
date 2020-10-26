@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 # take a list of messages and convert to <img>, <a>, or just leave as text
 from rfc3987 import parse
 
