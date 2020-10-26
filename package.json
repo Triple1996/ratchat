@@ -36,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "react-google-login": "^5.1.22",
     "socket.io-client": "^2.3.1"
   },
   "name": "project2-m2",
