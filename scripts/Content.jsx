@@ -4,7 +4,7 @@ import { InputField } from './InputField';
 import { Socket } from './Socket';
 import { GoogleButton } from './GoogleButton';
 
-export default function Content() {
+export function Content() {
   const [messages, setMessages] = React.useState([]);
   const [userCount, setUserCount] = React.useState(0);
 
@@ -37,6 +37,7 @@ export default function Content() {
         ))}
       </div>
       <InputField />
+      <h1 id="response-field" />
       <GoogleButton />
     </div>
   );
