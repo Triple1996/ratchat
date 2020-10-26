@@ -1,5 +1,4 @@
 # pylint: disable=missing-docstring
-# pylint: disable=wrong-import-order
 # pylint: disable=no-member
 # pylint: disable=wrong-import-position
 from os.path import join, dirname
@@ -125,7 +124,7 @@ def on_new_google_login(data):
             )
         )
         DB.session.commit()
-    except:  # email already exists in the DB (SQL.IntegrityError)
+    except:  #pylint: disable=bare-except ## email already exists in the DB (SQL.IntegrityError)
         pass
 
 
