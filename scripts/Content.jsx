@@ -37,7 +37,7 @@ export function Content() {
         ))}
       </div>
       <InputField />
-      <h1 id="response-field" />
+      <p id="response-field"> </p>
       <GoogleButton />
     </div>
   );
