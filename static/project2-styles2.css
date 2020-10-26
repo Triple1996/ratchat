@@ -115,5 +115,13 @@ html {
   margin: auto;
   padding:20px;
   bottom: 5px;
-  border: 1px solid Black;
+}
+
+#username {
+  color: black;
+  position: relative;
+  width: 30%;
+  margin: auto;
+  padding:20px;
+  bottom: 5px;
 }
