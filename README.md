@@ -112,5 +112,5 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
 
 # Additional Testing
     I unfortunately was not able to reach 100% coverage of my main app.py. This is mostly due to the amount of mocking involved 
-    with database and socketio logic. If I had more time, I would definitely have created mock db and mock socket objects to use 
+    with database and socketio logic. If I had more time, I would definitely have created mock db and mock socket objects to use
     instead of relying on the actual sql_alchemy calls and socketio calls.
