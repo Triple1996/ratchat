@@ -2,7 +2,6 @@
 from enum import Enum
 from app import DB
 
-
 class ChatLog(DB.Model):
     # pylint: disable=too-few-public-methods
     # pylint: disable=no-member
@@ -15,10 +14,6 @@ class ChatLog(DB.Model):
         self.content = content
         self.user = user
         self.picture_url = picture_url
-
-    def __repr__(self):
-        return "<Message content: %s>" % self.content
-
 
 class AuthUser(DB.Model):
     # pylint: disable=too-few-public-methods
@@ -35,10 +30,6 @@ class AuthUser(DB.Model):
         self.auth_type = auth_type.value
         self.email = email
         self.picture_url = picture_url
-
-    def __repr__(self):
-        return "<User name: {}\ntype: {}".format(self.name, self.auth_type)
-
 
 class AuthUserType(Enum):
     LINKEDIN = "linkedin"
