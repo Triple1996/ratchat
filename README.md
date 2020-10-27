@@ -102,20 +102,15 @@ If that doesn't work: `sudo vim $(psql -c "show hba_file;" | grep pg_hba.conf)`
         happens when testing locally and the chat is being spammed quickly, and the exact cause is undetermined. Given 
         more time, I would investigate if previous chats from a previous session are somehow ignored.
 
-# Development Obstacles
-    a) I spent a lot of time trying to make it so the chat stays scrolled to the bottom. I attempted to use a CSS attribute 
-        I found called `over-flow: auto;`, which was supposed to keep whatever HTML element in view (in this case an invisible 
-        "anchor" div that hangs beneath the most recent message). However, it did not seem to work. I inadvertently got this 
-        effect when I limited the chat to only 50 messages.
-    
-    b) Trying to format the signature to float to the right while the message stays to the left served to be a difficult 
-        problem. When it would float right, it would still be about halfway in the middle of the chat window and sometimes 
-        it would move depending on the message length. Instead, I decided to generate two lists - one for messages and one 
-        for the signatures. This way, each signature element could be formatted completely independent from its corresponding 
-        message
-    
-    c) Because the page is generating two lists, the corresponding items would sometimes get misaligned. The first time this 
-        was noticed was when sending blank messages, so a check was added to the input field so you couldn't send empty 
-        messages. Then I noticed it would happen depending on the size of the message/username. This issue was fixed by 
-        simply declaring a fixed height for all messages, in accordance with the 120 character limit.
-    
+# Decision on Test
+    I chose the test that I did mainly to first, attain as much coverage of my code as possible. That is, I wanted every 
+        line (or as close to every line) being run and used by my tests. Once as much coverage as possible was achieved, I then 
+        sought to account for edge cases, such as what happens if the user misses a space? For these, I would feed broken input
+        into my chatbot handler and expect it to either recognize it and give me the right answer, or reject it outright. Other 
+        things I needed to test are all API calls - what happens if I get a KeyError from one of my APIs because the expected 
+        string did not get returned? I would handle that by catching the KeyError in a try-catch block.
+
+# Additional Testing
+    I unfortunately was not able to reach 100% coverage of my main app.py. This is mostly due to the amount of mocking involved with 
+    database and socketio logic. If I had more time, I would definitely have created mock db and mock socket objects to use instead 
+    of relying on the actual sql_alchemy calls and socketio calls.
