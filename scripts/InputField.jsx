@@ -35,7 +35,7 @@ export function InputField() {
     <div id="input-ui">
       <form onSubmit={handleSubmit}>
         <input id="chat-input" placeholder="Enter message" disabled />
-        <button id="submit" type="button" disabled>Send!</button>
+        <button id="submit" type="submit" disabled>Send!</button>
       </form>
     </div>
   );
