@@ -25,7 +25,7 @@ function handleSubmit(response) {
 export function GoogleButton() {
   return (
     <GoogleLogin
-      clientId="174343683808-a8qlre1saob9enalirddvbkmi4m8al43.apps.googleusercontent.com"
+      clientId="937687230071-bd0c377ob6uqgudp394na6gk8h0h38pi.apps.googleusercontent.com"
       buttonText="Login to join the chat!"
       onSuccess={handleSubmit}
       onFailure={HandleFailedLogin}
